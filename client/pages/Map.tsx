@@ -2,7 +2,7 @@ import { useEffect, useState, useRef } from 'react';
 import { supabase, Site } from '@/lib/supabase';
 import Layout from '@/components/Layout';
 import { ExternalLink } from 'lucide-react';
-import maplibregl from 'maplibre-gl';
+import L from 'leaflet';
 
 export default function Map() {
   const [sites, setSites] = useState<Site[]>([]);
@@ -138,98 +138,101 @@ export default function Map() {
 
 function MapView({ sites, selectedSite, onSelectSite }: { sites: Site[]; selectedSite: Site | null; onSelectSite: (site: Site) => void }) {
   const mapContainer = useRef<HTMLDivElement>(null);
-  const map = useRef<maplibregl.Map | null>(null);
-  const markersRef = useRef<{ [key: string]: maplibregl.Marker }>({});
+  const map = useRef<L.Map | null>(null);
+  const markersRef = useRef<{ [key: string]: L.Marker }>({});
 
   useEffect(() => {
     if (!mapContainer.current || sites.length === 0) return;
 
-    try {
-      map.current = new maplibregl.Map({
-        container: mapContainer.current,
-        style: {
-          version: 8,
-          sources: {
-            osm: {
-              type: 'raster',
-              tiles: [
-                'https://a.tile.openstreetmap.org/{z}/{x}/{y}.png',
-                'https://b.tile.openstreetmap.org/{z}/{x}/{y}.png',
-                'https://c.tile.openstreetmap.org/{z}/{x}/{y}.png',
-              ],
-              tileSize: 256,
-              attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-            },
-          },
-          layers: [
-            {
-              id: 'osm',
-              type: 'raster',
-              source: 'osm',
-              minzoom: 0,
-              maxzoom: 19,
-            },
-          ],
-        },
-        center: [sites[0].koordinat_site.lng, sites[0].koordinat_site.lat],
-        zoom: 12,
-        pitch: 0,
-        bearing: 0,
+    // Initialize map
+    const mapInstance = L.map(mapContainer.current, {
+      center: [sites[0].koordinat_site.lat, sites[0].koordinat_site.lng],
+      zoom: 12,
+      zoomControl: true,
+      scrollWheelZoom: true,
+    });
+
+    // Add tile layer
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+      maxZoom: 19,
+    }).addTo(mapInstance);
+
+    map.current = mapInstance;
+
+    // Add markers for each site
+    sites.forEach(site => {
+      const isSelected = selectedSite?.id === site.id;
+
+      const icon = L.divIcon({
+        html: `
+          <div style="
+            width: 40px;
+            height: 40px;
+            background: ${isSelected ? '#06b6d4' : '#3b82f6'};
+            border: 3px solid white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+            cursor: pointer;
+          ">
+            <div style="width: 12px; height: 12px; background: white; border-radius: 50%;"></div>
+          </div>
+        `,
+        iconSize: [40, 40],
+        className: 'custom-marker',
       });
 
-      map.current.on('load', () => {
-        // Add markers for each site
-        sites.forEach(site => {
-          const el = document.createElement('div');
-          el.className = 'marker';
-          el.style.width = '40px';
-          el.style.height = '40px';
-          el.style.cursor = 'pointer';
-
-          const isSelected = selectedSite?.id === site.id;
-          el.innerHTML = `
-            <div style="
-              width: 100%;
-              height: 100%;
-              background: ${isSelected ? '#06b6d4' : '#3b82f6'};
-              border: 3px solid white;
-              border-radius: 50%;
-              display: flex;
-              align-items: center;
-              justify-content: center;
-              box-shadow: 0 4px 12px rgba(0,0,0,0.4);
-              transition: all 0.2s;
-            ">
-              <div style="width: 12px; height: 12px; background: white; border-radius: 50%;"></div>
-            </div>
-          `;
-
-          el.addEventListener('click', (e) => {
-            e.stopPropagation();
-            onSelectSite(site);
-          });
-
-          const marker = new maplibregl.Marker({ element: el })
-            .setLngLat([site.koordinat_site.lng, site.koordinat_site.lat])
-            .addTo(map.current!);
-
-          markersRef.current[site.id] = marker;
+      const marker = L.marker([site.koordinat_site.lat, site.koordinat_site.lng], {
+        icon: icon,
+      })
+        .addTo(mapInstance)
+        .on('click', () => {
+          onSelectSite(site);
         });
-      });
 
-      map.current.on('error', (e) => {
-        console.error('Map error:', e);
-      });
-    } catch (error) {
-      console.error('Failed to initialize map:', error);
-    }
+      markersRef.current[site.id] = marker;
+    });
 
     return () => {
       if (map.current) {
         map.current.remove();
       }
     };
-  }, [sites, selectedSite]);
+  }, [sites]);
+
+  // Update marker icons when selection changes
+  useEffect(() => {
+    Object.entries(markersRef.current).forEach(([siteId, marker]) => {
+      const site = sites.find(s => s.id === siteId);
+      if (!site) return;
+
+      const isSelected = selectedSite?.id === siteId;
+      const icon = L.divIcon({
+        html: `
+          <div style="
+            width: 40px;
+            height: 40px;
+            background: ${isSelected ? '#06b6d4' : '#3b82f6'};
+            border: 3px solid white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+            cursor: pointer;
+          ">
+            <div style="width: 12px; height: 12px; background: white; border-radius: 50%;"></div>
+          </div>
+        `,
+        iconSize: [40, 40],
+        className: 'custom-marker',
+      });
+      marker.setIcon(icon);
+    });
+  }, [selectedSite, sites]);
 
   return (
     <div
@@ -237,7 +240,6 @@ function MapView({ sites, selectedSite, onSelectSite }: { sites: Site[]; selecte
       style={{
         width: '100%',
         height: '100%',
-        backgroundColor: '#f0f0f0'
       }}
     />
   );
