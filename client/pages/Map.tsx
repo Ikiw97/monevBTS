@@ -8,6 +8,7 @@ export default function Map() {
   const [sites, setSites] = useState<Site[]>([]);
   const [selectedSite, setSelectedSite] = useState<Site | null>(null);
   const [loading, setLoading] = useState(true);
+  const [searchNomor, setSearchNomor] = useState('');
 
   useEffect(() => {
     fetchSites();
@@ -58,9 +59,20 @@ export default function Map() {
 
           {/* Sites List Sidebar */}
           <div className="bg-slate-800/50 border border-slate-700/50 rounded-lg p-6 h-[500px] overflow-y-auto">
-            <h2 className="text-xl font-bold text-white mb-4">Daftar Menara ({sites.length})</h2>
+            <div className="mb-4">
+              <h2 className="text-xl font-bold text-white mb-3">Daftar Menara ({sites.length})</h2>
+              <input
+                type="number"
+                placeholder="Cari nomor urut..."
+                value={searchNomor}
+                onChange={(e) => setSearchNomor(e.target.value)}
+                className="w-full bg-slate-700/50 border border-slate-600 rounded-lg px-3 py-2 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-cyan-500 transition-all text-sm"
+              />
+            </div>
             <div className="space-y-3">
-              {sites.map(site => (
+              {sites
+                .filter(site => !searchNomor || site.nomor_urut.toString() === searchNomor)
+                .map(site => (
                 <div
                   key={site.id}
                   onClick={() => setSelectedSite(site)}
@@ -70,6 +82,11 @@ export default function Map() {
                       : 'bg-slate-700/30 border border-slate-600/50 hover:bg-slate-700/50'
                   }`}
                 >
+                  <div className="flex items-center gap-2 mb-1">
+                    <span className="text-xs bg-cyan-600/30 text-cyan-400 px-2 py-1 rounded font-semibold">
+                      #{site.nomor_urut}
+                    </span>
+                  </div>
                   <h3 className="font-semibold text-white text-sm">{site.nama_site}</h3>
                   <p className="text-slate-400 text-xs mt-1 line-clamp-2">{site.alamat_site}</p>
                   <div className="flex items-center justify-between mt-2">
@@ -95,7 +112,12 @@ export default function Map() {
         {/* Site Details */}
         {selectedSite && (
           <div className="bg-gradient-to-r from-blue-600/10 to-cyan-600/10 border border-blue-700/50 rounded-lg p-6">
-            <h3 className="text-2xl font-bold text-white mb-4">{selectedSite.nama_site}</h3>
+            <div className="flex items-center gap-3 mb-4">
+              <div>
+                <h3 className="text-2xl font-bold text-white">{selectedSite.nama_site}</h3>
+                <p className="text-cyan-400 text-sm font-medium">Nomor Urut: #{selectedSite.nomor_urut}</p>
+              </div>
+            </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
                 <p className="text-slate-400 text-sm mb-1">Alamat</p>
