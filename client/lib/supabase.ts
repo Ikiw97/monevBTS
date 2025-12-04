@@ -11,6 +11,7 @@ export const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
 export type Site = {
   id: string;
+  nomor_urut: number;
   nama_site: string;
   alamat_site: string;
   koordinat_site: { lat: number; lng: number };
