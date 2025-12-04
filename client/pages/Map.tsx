@@ -152,9 +152,13 @@ function MapView({ sites, selectedSite, onSelectSite }: { sites: Site[]; selecte
           sources: {
             osm: {
               type: 'raster',
-              tiles: ['https://tile.openstreetmap.org/{z}/{x}/{y}.png'],
+              tiles: [
+                'https://a.tile.openstreetmap.org/{z}/{x}/{y}.png',
+                'https://b.tile.openstreetmap.org/{z}/{x}/{y}.png',
+                'https://c.tile.openstreetmap.org/{z}/{x}/{y}.png',
+              ],
               tileSize: 256,
-              attribution: '© OpenStreetMap contributors',
+              attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
             },
           },
           layers: [
@@ -162,12 +166,15 @@ function MapView({ sites, selectedSite, onSelectSite }: { sites: Site[]; selecte
               id: 'osm',
               type: 'raster',
               source: 'osm',
+              minzoom: 0,
+              maxzoom: 19,
             },
           ],
         },
         center: [sites[0].koordinat_site.lng, sites[0].koordinat_site.lat],
-        zoom: 10,
-        attributionControl: true,
+        zoom: 12,
+        pitch: 0,
+        bearing: 0,
       });
 
       map.current.on('load', () => {
