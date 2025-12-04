@@ -141,6 +141,18 @@ export default function DataEntry() {
             <h2 className="text-2xl font-bold text-white mb-6">Detail Menara</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
+                <label className="block text-sm font-medium text-slate-300 mb-2">Nomor Urut *</label>
+                <input
+                  type="number"
+                  value={formData.nomor_urut}
+                  onChange={(e) => handleFormChange('nomor_urut', e.target.value)}
+                  placeholder="Contoh: 1, 2, 3..."
+                  className="w-full bg-slate-700/50 border border-slate-600 rounded-lg px-4 py-2 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-cyan-500 transition-all"
+                  required
+                />
+              </div>
+
+              <div>
                 <label className="block text-sm font-medium text-slate-300 mb-2">Nama Site *</label>
                 <input
                   type="text"
