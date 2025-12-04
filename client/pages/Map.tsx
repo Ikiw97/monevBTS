@@ -3,7 +3,6 @@ import { supabase, Site } from '@/lib/supabase';
 import Layout from '@/components/Layout';
 import { ExternalLink } from 'lucide-react';
 import maplibregl from 'maplibre-gl';
-import 'maplibre-gl/dist/maplibre-gl.css';
 
 export default function Map() {
   const [sites, setSites] = useState<Site[]>([]);
