@@ -23,6 +23,7 @@ const CHECKLIST_ITEMS = [
 
 export default function DataEntry() {
   const [formData, setFormData] = useState({
+    nomor_urut: '',
     nama_site: '',
     alamat_site: '',
     lat: '',
@@ -56,8 +57,8 @@ export default function DataEntry() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
-    if (!formData.nama_site || !formData.alamat_site || !formData.lat || !formData.lng) {
+
+    if (!formData.nomor_urut || !formData.nama_site || !formData.alamat_site || !formData.lat || !formData.lng) {
       setMessage('Semua field site harus diisi');
       return;
     }
@@ -70,6 +71,7 @@ export default function DataEntry() {
       const { data: siteData, error: siteError } = await supabase
         .from('sites')
         .insert([{
+          nomor_urut: parseInt(formData.nomor_urut),
           nama_site: formData.nama_site,
           alamat_site: formData.alamat_site,
           koordinat_site: { lat: parseFloat(formData.lat), lng: parseFloat(formData.lng) },
@@ -102,6 +104,7 @@ export default function DataEntry() {
       // Reset form
       setTimeout(() => {
         setFormData({
+          nomor_urut: '',
           nama_site: '',
           alamat_site: '',
           lat: '',
