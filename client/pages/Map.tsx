@@ -142,87 +142,96 @@ function MapView({ sites, selectedSite, onSelectSite }: { sites: Site[]; selecte
   const markersRef = useRef<{ [key: string]: maplibregl.Marker }>({});
 
   useEffect(() => {
-    if (!mapContainer.current) return;
+    if (!mapContainer.current || sites.length === 0) return;
 
-    map.current = new maplibregl.Map({
-      container: mapContainer.current,
-      style: {
-        version: 8,
-        sources: {
-          osm: {
-            type: 'raster',
-            tiles: ['https://tile.openstreetmap.org/{z}/{x}/{y}.png'],
-            tileSize: 256,
+    try {
+      map.current = new maplibregl.Map({
+        container: mapContainer.current,
+        style: {
+          version: 8,
+          sources: {
+            osm: {
+              type: 'raster',
+              tiles: ['https://tile.openstreetmap.org/{z}/{x}/{y}.png'],
+              tileSize: 256,
+              attribution: '© OpenStreetMap contributors',
+            },
           },
+          layers: [
+            {
+              id: 'osm',
+              type: 'raster',
+              source: 'osm',
+            },
+          ],
         },
-        layers: [
-          {
-            id: 'osm',
-            type: 'raster',
-            source: 'osm',
-          },
-        ],
-      },
-      center: sites.length > 0 ? [sites[0].koordinat_site.lng, sites[0].koordinat_site.lat] : [106.8456, -6.2088],
-      zoom: 10,
-    });
-
-    map.current.on('load', () => {
-      // Add markers for each site
-      sites.forEach(site => {
-        const el = document.createElement('div');
-        el.className = 'marker';
-        el.style.width = '30px';
-        el.style.height = '30px';
-        el.style.cursor = 'pointer';
-
-        const isSelected = selectedSite?.id === site.id;
-        el.innerHTML = `
-          <div style="
-            width: 100%;
-            height: 100%;
-            background: ${isSelected ? '#06b6d4' : '#3b82f6'};
-            border: 2px solid white;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
-            transition: all 0.2s;
-          ">
-            <div style="width: 10px; height: 10px; background: white; border-radius: 50%;"></div>
-          </div>
-        `;
-
-        el.addEventListener('click', () => {
-          onSelectSite(site);
-        });
-
-        const marker = new maplibregl.Marker({ element: el })
-          .setLngLat([site.koordinat_site.lng, site.koordinat_site.lat])
-          .addTo(map.current!);
-
-        markersRef.current[site.id] = marker;
+        center: [sites[0].koordinat_site.lng, sites[0].koordinat_site.lat],
+        zoom: 10,
+        attributionControl: true,
       });
-    });
+
+      map.current.on('load', () => {
+        // Add markers for each site
+        sites.forEach(site => {
+          const el = document.createElement('div');
+          el.className = 'marker';
+          el.style.width = '40px';
+          el.style.height = '40px';
+          el.style.cursor = 'pointer';
+
+          const isSelected = selectedSite?.id === site.id;
+          el.innerHTML = `
+            <div style="
+              width: 100%;
+              height: 100%;
+              background: ${isSelected ? '#06b6d4' : '#3b82f6'};
+              border: 3px solid white;
+              border-radius: 50%;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+              transition: all 0.2s;
+            ">
+              <div style="width: 12px; height: 12px; background: white; border-radius: 50%;"></div>
+            </div>
+          `;
+
+          el.addEventListener('click', (e) => {
+            e.stopPropagation();
+            onSelectSite(site);
+          });
+
+          const marker = new maplibregl.Marker({ element: el })
+            .setLngLat([site.koordinat_site.lng, site.koordinat_site.lat])
+            .addTo(map.current!);
+
+          markersRef.current[site.id] = marker;
+        });
+      });
+
+      map.current.on('error', (e) => {
+        console.error('Map error:', e);
+      });
+    } catch (error) {
+      console.error('Failed to initialize map:', error);
+    }
 
     return () => {
       if (map.current) {
         map.current.remove();
       }
     };
-  }, [sites]);
+  }, [sites, selectedSite]);
 
-  // Update marker style when selection changes
-  useEffect(() => {
-    Object.entries(markersRef.current).forEach(([siteId, marker]) => {
-      const isSelected = selectedSite?.id === siteId;
-      const el = marker.getElement();
-      if (el && el.firstChild) {
-        (el.firstChild as HTMLDivElement).style.background = isSelected ? '#06b6d4' : '#3b82f6';
-      }
-    });
-  }, [selectedSite]);
-
-  return <div ref={mapContainer} style={{ width: '100%', height: '100%' }} />;
+  return (
+    <div
+      ref={mapContainer}
+      style={{
+        width: '100%',
+        height: '100%',
+        backgroundColor: '#f0f0f0'
+      }}
+    />
+  );
 }
