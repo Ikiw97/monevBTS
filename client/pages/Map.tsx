@@ -1,7 +1,9 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { supabase, Site } from '@/lib/supabase';
 import Layout from '@/components/Layout';
 import { ExternalLink } from 'lucide-react';
+import maplibregl from 'maplibre-gl';
+import 'maplibre-gl/dist/maplibre-gl.css';
 
 export default function Map() {
   const [sites, setSites] = useState<Site[]>([]);
@@ -27,10 +29,6 @@ export default function Map() {
       setLoading(false);
     }
   };
-
-  const mapUrl = sites.length > 0
-    ? `https://www.google.com/maps/embed/v1/place?key=AIzaSyDQK5Zw3N5V5Y5Z5Z5Z5Z5Z5Z5Z5Z5Z5Z&q=${sites[0]?.koordinat_site?.lat},${sites[0]?.koordinat_site?.lng}&zoom=12`
-    : '';
 
   return (
     <Layout>
@@ -80,7 +78,7 @@ export default function Map() {
                       {site.lokasi}
                     </span>
                     <a
-                      href={`https://maps.google.com/?q=${site.koordinat_site.lat},${site.koordinat_site.lng}`}
+                      href={`https://www.openstreetmap.org/?mlat=${site.koordinat_site.lat}&mlon=${site.koordinat_site.lng}&zoom=15`}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-cyan-400 hover:text-cyan-300 transition-colors"
@@ -122,13 +120,13 @@ export default function Map() {
               </div>
               <div className="md:col-span-2">
                 <a
-                  href={`https://maps.google.com/?q=${selectedSite.koordinat_site.lat},${selectedSite.koordinat_site.lng}`}
+                  href={`https://www.openstreetmap.org/?mlat=${selectedSite.koordinat_site.lat}&mlon=${selectedSite.koordinat_site.lng}&zoom=15`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-medium transition-colors"
                 >
                   <ExternalLink className="w-4 h-4" />
-                  Buka di Google Maps
+                  Buka di Peta
                 </a>
               </div>
             </div>
@@ -140,77 +138,78 @@ export default function Map() {
 }
 
 function MapView({ sites, selectedSite, onSelectSite }: { sites: Site[]; selectedSite: Site | null; onSelectSite: (site: Site) => void }) {
-  return (
-    <svg
-      width="100%"
-      height="100%"
-      viewBox="0 0 1200 500"
-      className="bg-gradient-to-br from-slate-700 to-slate-800"
-    >
-      {/* Background grid */}
-      <defs>
-        <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
-          <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#334155" strokeWidth="0.5" />
-        </pattern>
-      </defs>
-      <rect width="1200" height="500" fill="url(#grid)" />
+  const mapContainer = useRef<HTMLDivElement>(null);
+  const map = useRef<maplibregl.Map | null>(null);
+  const markersRef = useRef<{ [key: string]: maplibregl.Marker }>({});
 
-      {/* Sites markers */}
-      {sites.map((site, idx) => {
-        const x = 100 + (idx % 3) * 300 + Math.random() * 100;
-        const y = 100 + Math.floor(idx / 3) * 150 + Math.random() * 100;
+  useEffect(() => {
+    if (!mapContainer.current) return;
+
+    const maptilerKey = import.meta.env.VITE_MAPTILER_KEY;
+
+    map.current = new maplibregl.Map({
+      container: mapContainer.current,
+      style: `https://api.maptiler.com/maps/streets/style.json?key=${maptilerKey}`,
+      center: sites.length > 0 ? [sites[0].koordinat_site.lng, sites[0].koordinat_site.lat] : [106.8456, -6.2088],
+      zoom: 10,
+    });
+
+    map.current.on('load', () => {
+      // Add markers for each site
+      sites.forEach(site => {
+        const el = document.createElement('div');
+        el.className = 'marker';
+        el.style.width = '30px';
+        el.style.height = '30px';
+        el.style.cursor = 'pointer';
+
         const isSelected = selectedSite?.id === site.id;
+        el.innerHTML = `
+          <div style="
+            width: 100%;
+            height: 100%;
+            background: ${isSelected ? '#06b6d4' : '#3b82f6'};
+            border: 2px solid white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+            transition: all 0.2s;
+          ">
+            <div style="width: 10px; height: 10px; background: white; border-radius: 50%;"></div>
+          </div>
+        `;
 
-        return (
-          <g key={site.id}>
-            {/* Marker circle */}
-            <circle
-              cx={x}
-              cy={y}
-              r={isSelected ? 20 : 15}
-              fill={isSelected ? '#06b6d4' : '#3b82f6'}
-              opacity={isSelected ? 1 : 0.7}
-              className="cursor-pointer hover:opacity-100 transition-all"
-              onClick={() => onSelectSite(site)}
-            />
-            {/* Inner circle */}
-            <circle
-              cx={x}
-              cy={y}
-              r={isSelected ? 10 : 7}
-              fill="white"
-              onClick={() => onSelectSite(site)}
-              className="cursor-pointer"
-            />
-            {/* Label */}
-            <text
-              x={x}
-              y={y + 30}
-              textAnchor="middle"
-              className="text-xs fill-white font-semibold cursor-pointer"
-              onClick={() => onSelectSite(site)}
-            >
-              {site.nama_site}
-            </text>
-          </g>
-        );
-      })}
+        el.addEventListener('click', () => {
+          onSelectSite(site);
+        });
 
-      {/* Legend */}
-      <g transform="translate(20, 20)">
-        <rect width="200" height="80" fill="rgba(15, 23, 42, 0.8)" stroke="#475569" strokeWidth="1" rx="8" />
-        <text x="10" y="25" className="text-sm fill-white font-semibold">
-          Lokasi Menara BTS
-        </text>
-        <circle cx="20" cy="50" r="6" fill="#3b82f6" />
-        <text x="35" y="55" className="text-xs fill-slate-300">
-          Menara
-        </text>
-        <circle cx="20" cy="70" r="6" fill="#06b6d4" />
-        <text x="35" y="75" className="text-xs fill-slate-300">
-          Terpilih
-        </text>
-      </g>
-    </svg>
-  );
+        const marker = new maplibregl.Marker({ element: el })
+          .setLngLat([site.koordinat_site.lng, site.koordinat_site.lat])
+          .addTo(map.current!);
+
+        markersRef.current[site.id] = marker;
+      });
+    });
+
+    return () => {
+      if (map.current) {
+        map.current.remove();
+      }
+    };
+  }, [sites]);
+
+  // Update marker style when selection changes
+  useEffect(() => {
+    Object.entries(markersRef.current).forEach(([siteId, marker]) => {
+      const isSelected = selectedSite?.id === siteId;
+      const el = marker.getElement();
+      if (el && el.firstChild) {
+        (el.firstChild as HTMLDivElement).style.background = isSelected ? '#06b6d4' : '#3b82f6';
+      }
+    });
+  }, [selectedSite]);
+
+  return <div ref={mapContainer} style={{ width: '100%', height: '100%' }} />;
 }
