@@ -144,11 +144,11 @@ function MapView({ sites, selectedSite, onSelectSite }: { sites: Site[]; selecte
   useEffect(() => {
     if (!mapContainer.current) return;
 
-    const maptilerKey = import.meta.env.VITE_MAPTILER_KEY;
+    const maptilerKey = import.meta.env.VITE_MAPTILER_KEY || '0zPxmvvuhtZXuc4d1vSL';
 
     map.current = new maplibregl.Map({
       container: mapContainer.current,
-      style: `https://api.maptiler.com/maps/streets/style.json?key=${maptilerKey}`,
+      style: `https://api.maptiler.com/maps/streets-v2/style.json?key=${maptilerKey}`,
       center: sites.length > 0 ? [sites[0].koordinat_site.lng, sites[0].koordinat_site.lat] : [106.8456, -6.2088],
       zoom: 10,
     });
