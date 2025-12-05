@@ -114,35 +114,6 @@ export default function Index() {
         </div>
       </section>
 
-      {/* Item Monitoring Section */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 bg-slate-800/50 rounded-lg border border-slate-700/50 my-20">
-        <h3 className="text-4xl font-bold text-center mb-16">13 Item Monitoring Menara</h3>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          {[
-            { no: 1, item: 'Busbar (Upper, Lower, Middle)' },
-            { no: 2, item: 'Cadwel di tiap kaki tower' },
-            { no: 3, item: 'Lampu (OBL, Taman, Penerangan BTS)' },
-            { no: 4, item: 'Box KWH' },
-            { no: 5, item: 'Box ACPDL' },
-            { no: 6, item: 'Box ABL' },
-            { no: 7, item: 'Tangga naik tower' },
-            { no: 8, item: 'Horizontal Tray' },
-            { no: 9, item: 'Tower' },
-            { no: 10, item: 'Grounding' },
-            { no: 11, item: 'Jumlah Shelter' },
-            { no: 12, item: 'Menara yang digunakan' },
-            { no: 13, item: 'Self Spotting, Microcel, Kamuflase' },
-          ].map((item) => (
-            <div key={item.no} className="bg-slate-700/30 border border-slate-600/50 rounded-lg p-4 hover:bg-slate-700/50 transition-colors">
-              <div className="flex items-start gap-3">
-                <span className="text-cyan-400 font-bold text-lg min-w-[2rem]">{item.no}.</span>
-                <span className="text-slate-200">{item.item}</span>
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
-
       {/* Tentang Section */}
       <section id="tentang" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
