@@ -125,6 +125,11 @@ export default function Dashboard() {
                 <div key={site.id} className="bg-slate-700/30 border border-slate-600/50 rounded-lg p-4 hover:bg-slate-700/50 transition-colors">
                   <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
                     <div className="flex-1">
+                      <div className="flex items-center gap-2 mb-1">
+                        <span className="px-2 py-1 bg-cyan-600/30 text-cyan-400 text-xs rounded font-semibold">
+                          #{site.nomor_urut}
+                        </span>
+                      </div>
                       <h3 className="text-lg font-semibold text-white">{site.nama_site}</h3>
                       <p className="text-slate-400 text-sm mt-1">{site.alamat_site}</p>
                       <div className="flex flex-wrap gap-2 mt-2">
