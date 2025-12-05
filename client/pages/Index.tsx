@@ -200,10 +200,10 @@ export default function Index() {
             Akses dashboard untuk memulai monitoring menara BTS Anda sekarang
           </p>
           <Link
-            to="/data-entry"
+            to="/dashboard"
             className="inline-flex items-center justify-center gap-2 bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 text-white px-8 py-4 rounded-lg font-semibold transition-all hover:shadow-lg hover:shadow-cyan-500/20"
           >
-            <Zap className="w-5 h-5" />
+            <BarChart3 className="w-5 h-5" />
             Masuk ke Sistem
           </Link>
         </div>
