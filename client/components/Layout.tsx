@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { MapPin, BarChart3, Plus } from 'lucide-react';
+import { MapPin, BarChart3, Plus, Home } from 'lucide-react';
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
@@ -23,6 +23,13 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             <nav className="hidden md:flex items-center gap-1">
               <Link
                 to="/"
+                className="px-4 py-2 rounded-lg text-sm font-medium text-slate-300 hover:bg-slate-800 hover:text-white transition-colors flex items-center gap-2"
+              >
+                <Home className="w-4 h-4" />
+                Home
+              </Link>
+              <Link
+                to="/dashboard"
                 className="px-4 py-2 rounded-lg text-sm font-medium text-slate-300 hover:bg-slate-800 hover:text-white transition-colors flex items-center gap-2"
               >
                 <BarChart3 className="w-4 h-4" />
@@ -54,6 +61,9 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                 </summary>
                 <div className="absolute right-0 mt-2 w-48 bg-slate-800 rounded-lg shadow-xl border border-slate-700 p-2">
                   <Link to="/" className="block px-4 py-2 text-slate-300 hover:bg-slate-700 rounded-lg transition-colors">
+                    Home
+                  </Link>
+                  <Link to="/dashboard" className="block px-4 py-2 text-slate-300 hover:bg-slate-700 rounded-lg transition-colors">
                     Dashboard
                   </Link>
                   <Link to="/data-entry" className="block px-4 py-2 text-slate-300 hover:bg-slate-700 rounded-lg transition-colors">
