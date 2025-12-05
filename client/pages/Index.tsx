@@ -217,21 +217,21 @@ export default function Index() {
 
 function StatBox({ number, label }: { number: string; label: string }) {
   return (
-    <div className="bg-gradient-to-br from-blue-600/10 to-cyan-600/10 border border-blue-500/30 rounded-lg p-6 text-center hover:border-cyan-500/50 transition-colors">
-      <p className="text-3xl font-bold text-transparent bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text">{number}</p>
-      <p className="text-slate-400 text-sm mt-2">{label}</p>
+    <div className="bg-gradient-to-br from-blue-50 to-blue-100 dark:from-blue-600/10 dark:to-cyan-600/10 border border-blue-200 dark:border-blue-500/30 rounded-lg p-6 text-center hover:border-blue-300 dark:hover:border-cyan-500/50 transition-colors shadow-md shadow-blue-200/50 dark:shadow-none">
+      <p className="text-3xl font-bold text-transparent bg-gradient-to-r from-blue-700 to-blue-600 dark:from-blue-400 dark:to-cyan-400 bg-clip-text">{number}</p>
+      <p className="text-slate-600 dark:text-slate-400 text-sm mt-2">{label}</p>
     </div>
   );
 }
 
 function FeatureCard({ icon, title, description }: { icon: React.ReactNode; title: string; description: string }) {
   return (
-    <div className="bg-slate-800/50 border border-slate-700/50 rounded-lg p-8 hover:border-cyan-500/50 transition-colors group">
+    <div className="bg-blue-50 dark:bg-slate-800/50 border border-blue-200 dark:border-slate-700/50 rounded-lg p-8 hover:border-blue-400 dark:hover:border-cyan-500/50 transition-colors group shadow-md shadow-blue-200/40 dark:shadow-none">
       <div className="mb-4 group-hover:scale-110 transition-transform duration-300">
         {icon}
       </div>
-      <h4 className="text-xl font-bold text-white mb-3">{title}</h4>
-      <p className="text-slate-400">{description}</p>
+      <h4 className="text-xl font-bold text-slate-900 dark:text-white mb-3">{title}</h4>
+      <p className="text-slate-600 dark:text-slate-400">{description}</p>
     </div>
   );
 }
