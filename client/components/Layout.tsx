@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { MapPin, BarChart3, Plus, Home } from 'lucide-react';
+import ThemeToggle from './ThemeToggle';
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
@@ -51,9 +52,10 @@ export default function Layout({ children }: { children: React.ReactNode }) {
               </Link>
             </nav>
 
-            {/* Mobile menu button */}
-            <div className="md:hidden">
-              <details className="group">
+            {/* Theme Toggle & Mobile menu button */}
+            <div className="flex items-center gap-2">
+              <ThemeToggle />
+              <details className="group md:hidden">
                 <summary className="flex items-center gap-2 cursor-pointer text-slate-300 hover:text-white transition-colors">
                   <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
