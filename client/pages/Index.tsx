@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { MapPin, BarChart3, Map, CheckCircle, AlertCircle, Zap, Users, TrendingUp } from 'lucide-react';
+import { MapPin, BarChart3, CheckCircle, AlertCircle, Zap, Users, TrendingUp } from 'lucide-react';
 
 export default function Index() {
   return (
@@ -49,18 +49,18 @@ export default function Index() {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
-                to="/data-entry"
+                to="/dashboard"
                 className="inline-flex items-center justify-center gap-2 bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 text-white px-8 py-4 rounded-lg font-semibold transition-all hover:shadow-lg hover:shadow-cyan-500/20"
               >
-                <Zap className="w-5 h-5" />
-                Input Data Menara
+                <BarChart3 className="w-5 h-5" />
+                Buka Dashboard
               </Link>
               <Link
-                to="/map"
+                to="/data-entry"
                 className="inline-flex items-center justify-center gap-2 bg-slate-700 hover:bg-slate-600 text-white px-8 py-4 rounded-lg font-semibold transition-all"
               >
-                <Map className="w-5 h-5" />
-                Lihat Peta
+                <Zap className="w-5 h-5" />
+                Input Data
               </Link>
             </div>
           </div>
