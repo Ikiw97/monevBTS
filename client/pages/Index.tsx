@@ -79,35 +79,35 @@ export default function Index() {
 
       {/* Features Section */}
       <section id="fitur" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-        <h3 className="text-4xl font-bold text-center mb-16">Fitur Utama</h3>
+        <h3 className="text-4xl font-bold text-center mb-16 text-slate-900 dark:text-white">Fitur Utama</h3>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           <FeatureCard
-            icon={<BarChart3 className="w-12 h-12 text-cyan-400" />}
+            icon={<BarChart3 className="w-12 h-12 text-blue-600 dark:text-cyan-400" />}
             title="Dashboard Analytics"
             description="Visualisasi data real-time dengan statistik kondisi menara dan pencapaian monitoring"
           />
           <FeatureCard
-            icon={<MapPin className="w-12 h-12 text-cyan-400" />}
+            icon={<MapPin className="w-12 h-12 text-blue-600 dark:text-cyan-400" />}
             title="Peta Interaktif"
             description="Lihat lokasi semua menara BTS di peta dengan zoom, pan, dan filter pencarian"
           />
           <FeatureCard
-            icon={<CheckCircle className="w-12 h-12 text-cyan-400" />}
+            icon={<CheckCircle className="w-12 h-12 text-blue-600 dark:text-cyan-400" />}
             title="Input Data Terstruktur"
             description="Form checklist lengkap dengan 13 item monitoring kondisi menara per lokasi"
           />
           <FeatureCard
-            icon={<TrendingUp className="w-12 h-12 text-cyan-400" />}
+            icon={<TrendingUp className="w-12 h-12 text-blue-600 dark:text-cyan-400" />}
             title="Tracking Status"
             description="Pantau kondisi menara (Baik, Sedang, Buruk) dengan riwayat perubahan"
           />
           <FeatureCard
-            icon={<Users className="w-12 h-12 text-cyan-400" />}
+            icon={<Users className="w-12 h-12 text-blue-600 dark:text-cyan-400" />}
             title="Multi-lokasi"
             description="Kelola menara di berbagai lokasi dengan identifikasi unik nomor urut"
           />
           <FeatureCard
-            icon={<Zap className="w-12 h-12 text-cyan-400" />}
+            icon={<Zap className="w-12 h-12 text-blue-600 dark:text-cyan-400" />}
             title="Database Terpadu"
             description="Penyimpanan data terpusat dengan keamanan dan integritas data terjamin"
           />
@@ -118,42 +118,42 @@ export default function Index() {
       <section id="tentang" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
           <div>
-            <h3 className="text-4xl font-bold mb-6">Tentang Sistem</h3>
-            <p className="text-slate-300 text-lg mb-4">
+            <h3 className="text-4xl font-bold mb-6 text-slate-900 dark:text-white">Tentang Sistem</h3>
+            <p className="text-slate-600 dark:text-slate-300 text-lg mb-4">
               Monitorin BTS adalah platform terintegrasi yang dikembangkan oleh <strong>Dinas Komunikasi, Informatika, dan Statistik Kabupaten Purwakarta</strong> untuk meningkatkan efisiensi monitoring dan evaluasi infrastruktur menara Base Transceiver Station (BTS).
             </p>
-            <p className="text-slate-300 text-lg mb-4">
+            <p className="text-slate-600 dark:text-slate-300 text-lg mb-4">
               Sistem ini memungkinkan pengelola dan teknisi untuk:
             </p>
             <ul className="space-y-3">
               <li className="flex items-center gap-3">
-                <CheckCircle className="w-5 h-5 text-cyan-400 flex-shrink-0" />
-                <span>Mencatat dan mengelola data menara secara terstruktur</span>
+                <CheckCircle className="w-5 h-5 text-blue-600 dark:text-cyan-400 flex-shrink-0" />
+                <span className="text-slate-600 dark:text-slate-300">Mencatat dan mengelola data menara secara terstruktur</span>
               </li>
               <li className="flex items-center gap-3">
-                <CheckCircle className="w-5 h-5 text-cyan-400 flex-shrink-0" />
-                <span>Memantau kondisi perangkat dan komponen menara</span>
+                <CheckCircle className="w-5 h-5 text-blue-600 dark:text-cyan-400 flex-shrink-0" />
+                <span className="text-slate-600 dark:text-slate-300">Memantau kondisi perangkat dan komponen menara</span>
               </li>
               <li className="flex items-center gap-3">
-                <CheckCircle className="w-5 h-5 text-cyan-400 flex-shrink-0" />
-                <span>Visualisasi lokasi menara di peta interaktif</span>
+                <CheckCircle className="w-5 h-5 text-blue-600 dark:text-cyan-400 flex-shrink-0" />
+                <span className="text-slate-600 dark:text-slate-300">Visualisasi lokasi menara di peta interaktif</span>
               </li>
               <li className="flex items-center gap-3">
-                <CheckCircle className="w-5 h-5 text-cyan-400 flex-shrink-0" />
-                <span>Menghasilkan laporan dan statistik monitoring</span>
+                <CheckCircle className="w-5 h-5 text-blue-600 dark:text-cyan-400 flex-shrink-0" />
+                <span className="text-slate-600 dark:text-slate-300">Menghasilkan laporan dan statistik monitoring</span>
               </li>
             </ul>
           </div>
           <div className="relative">
-            <div className="absolute inset-0 bg-gradient-to-br from-blue-500/20 to-cyan-500/20 rounded-lg blur-xl"></div>
-            <div className="relative bg-slate-800/50 border border-slate-700/50 rounded-lg p-8">
+            <div className="absolute inset-0 bg-gradient-to-br from-blue-400/20 dark:from-blue-500/20 to-blue-300/20 dark:to-cyan-500/20 rounded-lg blur-xl"></div>
+            <div className="relative bg-blue-50 dark:bg-slate-800/50 border border-blue-200 dark:border-slate-700/50 rounded-lg p-8 shadow-lg shadow-blue-200/50 dark:shadow-none">
               <div className="space-y-6">
                 <div>
-                  <h4 className="text-cyan-400 font-bold text-sm mb-2">DINAS KOMUNIKASI, INFORMATIKA, DAN STATISTIK</h4>
-                  <p className="text-slate-300">Kabupaten Purwakarta</p>
+                  <h4 className="text-blue-700 dark:text-cyan-400 font-bold text-sm mb-2">DINAS KOMUNIKASI, INFORMATIKA, DAN STATISTIK</h4>
+                  <p className="text-slate-600 dark:text-slate-300">Kabupaten Purwakarta</p>
                 </div>
-                <div className="border-t border-slate-600 pt-6">
-                  <p className="text-slate-400 text-sm">
+                <div className="border-t border-blue-200 dark:border-slate-600 pt-6">
+                  <p className="text-slate-600 dark:text-slate-400 text-sm">
                     Sistem ini dibangun dengan teknologi modern untuk mendukung transformasi digital dan peningkatan kualitas layanan infrastruktur telekomunikasi di Kabupaten Purwakarta.
                   </p>
                 </div>
@@ -165,14 +165,14 @@ export default function Index() {
 
       {/* CTA Section */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-        <div className="bg-gradient-to-r from-blue-600/20 to-cyan-600/20 border border-blue-500/50 rounded-lg p-12 text-center">
-          <h3 className="text-3xl font-bold mb-4">Siap Mulai?</h3>
-          <p className="text-slate-300 mb-8 text-lg">
+        <div className="bg-gradient-to-r from-blue-100 to-blue-200 dark:from-blue-600/20 dark:to-cyan-600/20 border border-blue-300 dark:border-blue-500/50 rounded-lg p-12 text-center shadow-lg shadow-blue-300/50 dark:shadow-none">
+          <h3 className="text-3xl font-bold mb-4 text-slate-900 dark:text-white">Siap Mulai?</h3>
+          <p className="text-slate-600 dark:text-slate-300 mb-8 text-lg">
             Akses dashboard untuk memulai monitoring menara BTS Anda sekarang
           </p>
           <Link
             to="/dashboard"
-            className="inline-flex items-center justify-center gap-2 bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 text-white px-8 py-4 rounded-lg font-semibold transition-all hover:shadow-lg hover:shadow-cyan-500/20"
+            className="inline-flex items-center justify-center gap-2 bg-gradient-to-r from-blue-600 to-blue-500 dark:from-blue-600 dark:to-cyan-600 hover:from-blue-700 hover:to-blue-600 dark:hover:from-blue-700 dark:hover:to-cyan-700 text-white px-8 py-4 rounded-lg font-semibold transition-all shadow-lg shadow-blue-500/30 dark:shadow-cyan-500/20 hover:shadow-xl hover:shadow-blue-600/40 dark:hover:shadow-cyan-500/30"
           >
             <BarChart3 className="w-5 h-5" />
             Masuk ke Sistem
@@ -181,33 +181,33 @@ export default function Index() {
       </section>
 
       {/* Footer */}
-      <footer className="border-t border-slate-700/50 bg-slate-900/50 mt-20">
+      <footer className="border-t border-blue-200 dark:border-slate-700/50 bg-blue-50 dark:bg-slate-900/50 mt-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
             <div>
-              <h4 className="text-white font-semibold mb-4">Tentang Sistem</h4>
-              <p className="text-slate-400 text-sm">
+              <h4 className="text-slate-900 dark:text-white font-semibold mb-4">Tentang Sistem</h4>
+              <p className="text-slate-600 dark:text-slate-400 text-sm">
                 Platform monitoring dan evaluasi infrastruktur menara BTS untuk Kabupaten Purwakarta
               </p>
             </div>
             <div>
-              <h4 className="text-white font-semibold mb-4">Fitur Utama</h4>
-              <ul className="text-slate-400 text-sm space-y-2">
+              <h4 className="text-slate-900 dark:text-white font-semibold mb-4">Fitur Utama</h4>
+              <ul className="text-slate-600 dark:text-slate-400 text-sm space-y-2">
                 <li>Dashboard Analytics</li>
                 <li>Peta Interaktif</li>
                 <li>Input Data Terstruktur</li>
               </ul>
             </div>
             <div>
-              <h4 className="text-white font-semibold mb-4">Kontak</h4>
-              <p className="text-slate-400 text-sm">
+              <h4 className="text-slate-900 dark:text-white font-semibold mb-4">Kontak</h4>
+              <p className="text-slate-600 dark:text-slate-400 text-sm">
                 Dinas Komunikasi, Informatika, dan Statistik<br />
                 Kabupaten Purwakarta
               </p>
             </div>
           </div>
-          <div className="border-t border-slate-700/50 pt-8">
-            <p className="text-slate-500 text-sm text-center">© 2025 Monitorin BTS. Sistem Manajemen Menara BTS Kabupaten Purwakarta.</p>
+          <div className="border-t border-blue-200 dark:border-slate-700/50 pt-8">
+            <p className="text-slate-500 dark:text-slate-500 text-sm text-center">© 2025 Monitorin BTS. Sistem Manajemen Menara BTS Kabupaten Purwakarta.</p>
           </div>
         </div>
       </footer>
