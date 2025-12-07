@@ -44,7 +44,7 @@ export default function Map() {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Map Container */}
           <div className="lg:col-span-2">
-            <div className="bg-white dark:bg-slate-800/50 border border-blue-200 dark:border-slate-700/50 rounded-lg overflow-hidden h-[500px] shadow-sm dark:shadow-none">
+            <div className="bg-white dark:bg-slate-800 rounded-lg overflow-hidden h-[500px] shadow-md">
               {loading ? (
                 <div className="w-full h-full flex items-center justify-center">
                   <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500 dark:border-cyan-500"></div>
@@ -60,7 +60,7 @@ export default function Map() {
           </div>
 
           {/* Sites List Sidebar */}
-          <div className="bg-white dark:bg-slate-800/50 border border-blue-200 dark:border-slate-700/50 rounded-lg p-6 h-[500px] overflow-y-auto shadow-sm dark:shadow-none">
+          <div className="bg-white dark:bg-slate-800 rounded-lg p-6 h-[500px] overflow-y-auto shadow-md">
             <div className="mb-4">
               <h2 className="text-xl font-bold text-slate-900 dark:text-white mb-3">Daftar Menara ({sites.length})</h2>
               <input
@@ -68,7 +68,7 @@ export default function Map() {
                 placeholder="Cari nomor urut..."
                 value={searchNomor}
                 onChange={(e) => setSearchNomor(e.target.value)}
-                className="w-full bg-blue-50 dark:bg-slate-700/50 border border-blue-200 dark:border-slate-600 rounded-lg px-3 py-2 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-cyan-500 transition-all text-sm"
+                className="w-full bg-blue-100 dark:bg-slate-700 rounded-lg px-3 py-2 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-cyan-500 transition-all text-sm"
               />
             </div>
             <div className="space-y-3">
@@ -80,26 +80,34 @@ export default function Map() {
                   onClick={() => setSelectedSite(site)}
                   className={`p-3 rounded-lg cursor-pointer transition-all ${
                     selectedSite?.id === site.id
-                      ? 'bg-blue-100 dark:bg-cyan-500/20 border border-blue-300 dark:border-cyan-500/50 shadow-sm dark:shadow-none'
-                      : 'bg-blue-50 dark:bg-slate-700/30 border border-blue-200 dark:border-slate-600/50 hover:bg-blue-100 dark:hover:bg-slate-700/50 shadow-xs dark:shadow-none'
+                      ? 'bg-blue-500 text-white shadow-md'
+                      : 'bg-blue-100 dark:bg-slate-700 hover:bg-blue-200 dark:hover:bg-slate-600 shadow-sm'
                   }`}
                 >
                   <div className="flex items-center gap-2 mb-1">
-                    <span className="text-xs bg-blue-200 dark:bg-cyan-600/30 text-blue-700 dark:text-cyan-400 px-2 py-1 rounded font-semibold">
+                    <span className="text-xs bg-blue-600 text-white px-2 py-1 rounded font-semibold">
                       #{site.nomor_urut}
                     </span>
                   </div>
-                  <h3 className="font-semibold text-slate-900 dark:text-white text-sm">{site.nama_site}</h3>
-                  <p className="text-slate-600 dark:text-slate-400 text-xs mt-1 line-clamp-2">{site.alamat_site}</p>
+                  <h3 className={`font-semibold text-sm ${
+                    selectedSite?.id === site.id ? 'text-white' : 'text-slate-900 dark:text-white'
+                  }`}>{site.nama_site}</h3>
+                  <p className={`text-xs mt-1 line-clamp-2 ${
+                    selectedSite?.id === site.id ? 'text-blue-50' : 'text-slate-600 dark:text-slate-400'
+                  }`}>{site.alamat_site}</p>
                   <div className="flex items-center justify-between mt-2">
-                    <span className="text-xs bg-blue-100 dark:bg-slate-600/50 text-blue-700 dark:text-slate-300 px-2 py-1 rounded">
+                    <span className={`text-xs px-2 py-1 rounded ${
+                      selectedSite?.id === site.id ? 'bg-blue-400 text-blue-900' : 'bg-blue-200 dark:bg-slate-600 text-blue-700 dark:text-slate-300'
+                    }`}>
                       {site.lokasi}
                     </span>
                     <a
                       href={`https://www.openstreetmap.org/?mlat=${site.koordinat_site.lat}&mlon=${site.koordinat_site.lng}&zoom=15`}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-blue-600 dark:text-cyan-400 hover:text-blue-700 dark:hover:text-cyan-300 transition-colors"
+                      className={`transition-colors ${
+                        selectedSite?.id === site.id ? 'text-white hover:text-blue-50' : 'text-blue-600 dark:text-cyan-400 hover:text-blue-700 dark:hover:text-cyan-300'
+                      }`}
                       onClick={(e) => e.stopPropagation()}
                     >
                       <ExternalLink className="w-4 h-4" />
@@ -113,31 +121,31 @@ export default function Map() {
 
         {/* Site Details */}
         {selectedSite && (
-          <div className="bg-gradient-to-r from-blue-50 to-blue-50/50 dark:from-blue-600/10 dark:to-cyan-600/10 border border-blue-200 dark:border-blue-700/50 rounded-lg p-6 shadow-sm dark:shadow-none">
+          <div className="bg-gradient-to-r from-blue-500 to-blue-600 dark:from-blue-600 dark:to-cyan-600 rounded-lg p-6 shadow-md text-white">
             <div className="flex items-center gap-3 mb-4">
               <div>
-                <h3 className="text-2xl font-bold text-slate-900 dark:text-white">{selectedSite.nama_site}</h3>
-                <p className="text-blue-700 dark:text-cyan-400 text-sm font-medium">Nomor Urut: #{selectedSite.nomor_urut}</p>
+                <h3 className="text-2xl font-bold text-white">{selectedSite.nama_site}</h3>
+                <p className="text-blue-100 text-sm font-medium">Nomor Urut: #{selectedSite.nomor_urut}</p>
               </div>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
-                <p className="text-slate-600 dark:text-slate-400 text-sm mb-1">Alamat</p>
-                <p className="text-slate-900 dark:text-white font-medium">{selectedSite.alamat_site}</p>
+                <p className="text-blue-100 text-sm mb-1">Alamat</p>
+                <p className="text-white font-medium">{selectedSite.alamat_site}</p>
               </div>
               <div>
-                <p className="text-slate-600 dark:text-slate-400 text-sm mb-1">Koordinat</p>
-                <p className="text-slate-900 dark:text-white font-medium">
+                <p className="text-blue-100 text-sm mb-1">Koordinat</p>
+                <p className="text-white font-medium">
                   {selectedSite.koordinat_site.lat.toFixed(6)}, {selectedSite.koordinat_site.lng.toFixed(6)}
                 </p>
               </div>
               <div>
-                <p className="text-slate-600 dark:text-slate-400 text-sm mb-1">Lokasi</p>
-                <p className="text-slate-900 dark:text-white font-medium">{selectedSite.lokasi}</p>
+                <p className="text-blue-100 text-sm mb-1">Lokasi</p>
+                <p className="text-white font-medium">{selectedSite.lokasi}</p>
               </div>
               <div>
-                <p className="text-slate-600 dark:text-slate-400 text-sm mb-1">Tanggal Checklist</p>
-                <p className="text-slate-900 dark:text-white font-medium">
+                <p className="text-blue-100 text-sm mb-1">Tanggal Checklist</p>
+                <p className="text-white font-medium">
                   {new Date(selectedSite.tanggal_checklist).toLocaleDateString('id-ID')}
                 </p>
               </div>
