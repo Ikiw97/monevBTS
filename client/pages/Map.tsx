@@ -154,7 +154,7 @@ export default function Map() {
                   href={`https://www.openstreetmap.org/?mlat=${selectedSite.koordinat_site.lat}&mlon=${selectedSite.koordinat_site.lng}&zoom=15`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-700 hover:to-blue-600 dark:from-blue-500 dark:to-cyan-500 dark:hover:from-blue-600 dark:hover:to-cyan-600 text-white px-4 py-2 rounded-lg font-medium transition-colors shadow-lg hover:shadow-xl dark:shadow-blue-900/30"
+                  className="inline-flex items-center gap-2 bg-white text-blue-600 hover:bg-blue-50 px-4 py-2 rounded-lg font-medium transition-colors shadow-md hover:shadow-lg"
                 >
                   <ExternalLink className="w-4 h-4" />
                   Buka di Peta
