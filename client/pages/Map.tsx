@@ -37,22 +37,22 @@ export default function Map() {
       <div className="space-y-8">
         {/* Header */}
         <div>
-          <h1 className="text-4xl font-bold text-white">Peta Menara</h1>
-          <p className="text-slate-400 mt-2">Lihat lokasi semua menara BTS yang telah dicatat</p>
+          <h1 className="text-4xl font-bold text-slate-900 dark:text-white">Peta Menara</h1>
+          <p className="text-slate-500 dark:text-slate-400 mt-2">Lihat lokasi semua menara BTS yang telah dicatat</p>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Map Container */}
           <div className="lg:col-span-2">
-            <div className="bg-slate-800/50 border border-slate-700/50 rounded-lg overflow-hidden h-[500px]">
+            <div className="bg-white dark:bg-slate-800/50 border border-blue-200 dark:border-slate-700/50 rounded-lg overflow-hidden h-[500px] shadow-sm dark:shadow-none">
               {loading ? (
                 <div className="w-full h-full flex items-center justify-center">
-                  <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-cyan-500"></div>
+                  <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500 dark:border-cyan-500"></div>
                 </div>
               ) : sites.length > 0 ? (
                 <MapView sites={sites} selectedSite={selectedSite} onSelectSite={setSelectedSite} />
               ) : (
-                <div className="w-full h-full flex items-center justify-center text-slate-400">
+                <div className="w-full h-full flex items-center justify-center text-slate-500 dark:text-slate-400">
                   <p>Belum ada data menara untuk ditampilkan</p>
                 </div>
               )}
@@ -60,15 +60,15 @@ export default function Map() {
           </div>
 
           {/* Sites List Sidebar */}
-          <div className="bg-slate-800/50 border border-slate-700/50 rounded-lg p-6 h-[500px] overflow-y-auto">
+          <div className="bg-white dark:bg-slate-800/50 border border-blue-200 dark:border-slate-700/50 rounded-lg p-6 h-[500px] overflow-y-auto shadow-sm dark:shadow-none">
             <div className="mb-4">
-              <h2 className="text-xl font-bold text-white mb-3">Daftar Menara ({sites.length})</h2>
+              <h2 className="text-xl font-bold text-slate-900 dark:text-white mb-3">Daftar Menara ({sites.length})</h2>
               <input
                 type="number"
                 placeholder="Cari nomor urut..."
                 value={searchNomor}
                 onChange={(e) => setSearchNomor(e.target.value)}
-                className="w-full bg-slate-700/50 border border-slate-600 rounded-lg px-3 py-2 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-cyan-500 transition-all text-sm"
+                className="w-full bg-blue-50 dark:bg-slate-700/50 border border-blue-200 dark:border-slate-600 rounded-lg px-3 py-2 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-cyan-500 transition-all text-sm"
               />
             </div>
             <div className="space-y-3">
