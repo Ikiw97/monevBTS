@@ -108,7 +108,64 @@ export default function Dashboard() {
         </div>
 
         {/* Recent Sites */}
-        <RecentSitesSection sites={sites} loading={loading} />
+        <div className="bg-white dark:bg-slate-800 rounded-lg p-6 shadow-md dark:shadow-lg">
+          <div className="flex items-center justify-between mb-6">
+            <h2 className="text-2xl font-bold text-slate-900 dark:text-white">Data Menara Terbaru</h2>
+            <Link to="/map" className="text-blue-600 dark:text-cyan-400 hover:text-blue-700 dark:hover:text-cyan-300 flex items-center gap-2 transition-colors">
+              Lihat Peta
+              <ArrowRight className="w-4 h-4" />
+            </Link>
+          </div>
+
+          {loading ? (
+            <div className="flex items-center justify-center py-12">
+              <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500 dark:border-cyan-500"></div>
+            </div>
+          ) : sites.length > 0 ? (
+            <div className="space-y-4">
+              {sites.map((site) => (
+                <div key={site.id} className="bg-blue-100 dark:bg-slate-700 rounded-lg p-4 hover:shadow-md transition-all">
+                  <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+                    <div className="flex-1">
+                      <div className="flex items-center gap-2 mb-1">
+                        <span className="px-2 py-1 bg-blue-600 text-white text-xs rounded font-semibold">
+                          #{site.nomor_urut}
+                        </span>
+                      </div>
+                      <h3 className="text-lg font-semibold text-slate-900 dark:text-white">{site.nama_site}</h3>
+                      <p className="text-slate-700 dark:text-slate-300 text-sm mt-1">{site.alamat_site}</p>
+                      <div className="flex flex-wrap gap-2 mt-2">
+                        <span className="px-2 py-1 bg-blue-200 dark:bg-slate-600 text-slate-800 dark:text-slate-200 text-xs rounded">
+                          Lokasi: {site.lokasi}
+                        </span>
+                        <span className="px-2 py-1 bg-blue-200 dark:bg-slate-600 text-slate-800 dark:text-slate-200 text-xs rounded">
+                          {new Date(site.tanggal_checklist).toLocaleDateString('id-ID')}
+                        </span>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <a
+                        href={`https://maps.google.com/?q=${site.koordinat_site.lat},${site.koordinat_site.lng}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="px-4 py-2 bg-blue-600 text-white hover:bg-blue-700 rounded-lg text-sm font-medium transition-colors"
+                      >
+                        Lihat Lokasi
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <div className="text-center py-12">
+              <p className="text-slate-600 dark:text-slate-400 mb-4">Belum ada data menara.</p>
+              <Link to="/data-entry" className="text-blue-600 dark:text-cyan-400 hover:text-blue-700 dark:hover:text-cyan-300 transition-colors">
+                Mulai input data
+              </Link>
+            </div>
+          )}
+        </div>
       </div>
     </Layout>
   );
