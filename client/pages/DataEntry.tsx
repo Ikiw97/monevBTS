@@ -132,25 +132,14 @@ export default function DataEntry() {
   return (
     <Layout>
       <div className="max-w-4xl mx-auto">
-        <motion.div
-          className="mb-8"
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-        >
+        <div className="mb-8">
           <h1 className="text-4xl font-bold text-slate-900 dark:text-white">Input Data Menara</h1>
           <p className="text-slate-500 dark:text-slate-400 mt-2">Masukkan detail menara dan checklist kondisi perangkat</p>
-        </motion.div>
+        </div>
 
         <form onSubmit={handleSubmit} className="space-y-8">
           {/* Site Details Section */}
-          <motion.div
-            ref={siteDetailsRef}
-            initial={{ opacity: 0, y: 30 }}
-            animate={siteDetailsVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-            transition={{ duration: 0.6, ease: "easeOut" }}
-            className="bg-white dark:bg-slate-800/50 border border-blue-200 dark:border-slate-700/50 rounded-lg p-6 shadow-sm dark:shadow-none"
-          >
+          <div className="bg-blue-50 dark:bg-slate-800 rounded-lg p-6 shadow-md">
             <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-6">Detail Menara</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
@@ -239,16 +228,10 @@ export default function DataEntry() {
                 />
               </div>
             </div>
-          </motion.div>
+          </div>
 
           {/* Checklist Section */}
-          <motion.div
-            ref={checklistRef}
-            initial={{ opacity: 0, y: 30 }}
-            animate={checklistVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-            transition={{ duration: 0.6, ease: "easeOut" }}
-            className="bg-white dark:bg-slate-800/50 border border-blue-200 dark:border-slate-700/50 rounded-lg p-6 shadow-sm dark:shadow-none"
-          >
+          <div className="bg-blue-50 dark:bg-slate-800 rounded-lg p-6 shadow-md">
             <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-6">Checklist Perangkat</h2>
             <div className="overflow-x-auto">
               <table className="w-full">
@@ -292,7 +275,7 @@ export default function DataEntry() {
                 </tbody>
               </table>
             </div>
-          </motion.div>
+          </div>
 
           {/* Message */}
           {message && (
@@ -303,20 +286,14 @@ export default function DataEntry() {
           )}
 
           {/* Submit Button */}
-          <motion.button
+          <button
             type="submit"
             disabled={loading}
-            ref={submitRef}
-            initial={{ opacity: 0, y: 20 }}
-            animate={submitVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-            transition={{ duration: 0.6 }}
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
             className="w-full bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-700 hover:to-blue-600 dark:from-blue-500 dark:to-cyan-500 dark:hover:from-blue-600 dark:hover:to-cyan-600 disabled:opacity-50 disabled:cursor-not-allowed text-white px-6 py-3 rounded-lg font-semibold transition-all shadow-lg hover:shadow-xl dark:shadow-blue-900/30 flex items-center justify-center gap-2"
           >
             <Save className="w-5 h-5" />
             {loading ? 'Menyimpan...' : 'Simpan Data'}
-          </motion.button>
+          </button>
         </form>
       </div>
     </Layout>
