@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import { useTheme } from '@/context/ThemeContext';
 
 export default function Dashboard() {
+  const { theme } = useTheme();
   const [sites, setSites] = useState<Site[]>([]);
   const [stats, setStats] = useState({ total: 0, baik: 0, sedang: 0, buruk: 0 });
   const [loading, setLoading] = useState(true);
