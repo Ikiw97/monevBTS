@@ -309,14 +309,14 @@ export default function DataEntry() {
 
           {/* Submit Button */}
           <motion.button
+            type="submit"
+            disabled={loading}
             ref={submitRef}
             initial={{ opacity: 0, y: 20 }}
             animate={submitVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
             transition={{ duration: 0.6 }}
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
-            type="submit"
-            disabled={loading}
             className="w-full bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-700 hover:to-blue-600 dark:from-blue-500 dark:to-cyan-500 dark:hover:from-blue-600 dark:hover:to-cyan-600 disabled:opacity-50 disabled:cursor-not-allowed text-white px-6 py-3 rounded-lg font-semibold transition-all shadow-lg hover:shadow-xl dark:shadow-blue-900/30 flex items-center justify-center gap-2"
           >
             <Save className="w-5 h-5" />
