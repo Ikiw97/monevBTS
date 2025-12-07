@@ -4,6 +4,8 @@ import Layout from '@/components/Layout';
 import { ArrowRight, AlertCircle, CheckCircle, AlertTriangle } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useTheme } from '@/context/ThemeContext';
+import { motion } from 'framer-motion';
+import { useScrollAnimation } from '@/hooks/use-scroll-animation';
 
 export default function Dashboard() {
   const { theme } = useTheme();
