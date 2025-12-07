@@ -183,11 +183,11 @@ function StatCard({
   color: string;
 }) {
   return (
-    <div className={`${color} border border-slate-700/50 rounded-lg p-4`}>
+    <div className={`${color} border rounded-lg p-4 shadow-sm dark:shadow-none`}>
       <div className="flex items-start justify-between">
         <div>
-          <p className="text-slate-400 text-sm font-medium">{label}</p>
-          <p className="text-3xl font-bold mt-2">{value}</p>
+          <p className="text-slate-600 dark:text-slate-400 text-sm font-medium">{label}</p>
+          <p className="text-3xl font-bold mt-2 text-slate-900 dark:text-white">{value}</p>
         </div>
         <div className="opacity-50">{icon}</div>
       </div>
