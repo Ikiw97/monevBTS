@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { supabase, Site, ChecklistItem } from '@/lib/supabase';
 import Layout from '@/components/Layout';
 import { Save, AlertCircle } from 'lucide-react';
+import { useTheme } from '@/context/ThemeContext';
 
 const LOKASI_OPTIONS = ['P', 'K', 'S', 'PK', 'JU', 'JL', 'JT'];
 
