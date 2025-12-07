@@ -82,32 +82,7 @@ export default function Dashboard() {
         </div>
 
         {/* Stats Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-          <StatCard
-            label="Total Checklist"
-            value={stats.total}
-            icon={<AlertCircle className="w-8 h-8" />}
-            color="bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-400 border-blue-200 dark:border-blue-800/50"
-          />
-          <StatCard
-            label="Kondisi Baik"
-            value={stats.baik}
-            icon={<CheckCircle className="w-8 h-8" />}
-            color="bg-green-50 dark:bg-green-900/20 text-green-700 dark:text-green-400 border-green-200 dark:border-green-800/50"
-          />
-          <StatCard
-            label="Kondisi Sedang"
-            value={stats.sedang}
-            icon={<AlertTriangle className="w-8 h-8" />}
-            color="bg-yellow-50 dark:bg-yellow-900/20 text-yellow-700 dark:text-yellow-400 border-yellow-200 dark:border-yellow-800/50"
-          />
-          <StatCard
-            label="Kondisi Buruk"
-            value={stats.buruk}
-            icon={<AlertCircle className="w-8 h-8" />}
-            color="bg-red-50 dark:bg-red-900/20 text-red-700 dark:text-red-400 border-red-200 dark:border-red-800/50"
-          />
-        </div>
+        <StatsGrid stats={stats} />
 
         {/* Recent Sites */}
         <div className="bg-white dark:bg-slate-800/50 border border-blue-200 dark:border-slate-700/50 rounded-lg p-6 shadow-sm dark:shadow-none">
