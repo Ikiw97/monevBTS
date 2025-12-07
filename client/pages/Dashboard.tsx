@@ -91,6 +91,131 @@ export default function Dashboard() {
   );
 }
 
+function StatsGrid({ stats }: { stats: { total: number; baik: number; sedang: number; buruk: number } }) {
+  const { ref, isVisible } = useScrollAnimation();
+
+  const statsData = [
+    {
+      label: "Total Checklist",
+      value: stats.total,
+      icon: <AlertCircle className="w-8 h-8" />,
+      color: "bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-400 border-blue-200 dark:border-blue-800/50",
+    },
+    {
+      label: "Kondisi Baik",
+      value: stats.baik,
+      icon: <CheckCircle className="w-8 h-8" />,
+      color: "bg-green-50 dark:bg-green-900/20 text-green-700 dark:text-green-400 border-green-200 dark:border-green-800/50",
+    },
+    {
+      label: "Kondisi Sedang",
+      value: stats.sedang,
+      icon: <AlertTriangle className="w-8 h-8" />,
+      color: "bg-yellow-50 dark:bg-yellow-900/20 text-yellow-700 dark:text-yellow-400 border-yellow-200 dark:border-yellow-800/50",
+    },
+    {
+      label: "Kondisi Buruk",
+      value: stats.buruk,
+      icon: <AlertCircle className="w-8 h-8" />,
+      color: "bg-red-50 dark:bg-red-900/20 text-red-700 dark:text-red-400 border-red-200 dark:border-red-800/50",
+    },
+  ];
+
+  return (
+    <div ref={ref} className="grid grid-cols-1 md:grid-cols-4 gap-4">
+      {statsData.map((stat, index) => (
+        <motion.div
+          key={index}
+          initial={{ opacity: 0, y: 20 }}
+          animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+          transition={{ delay: index * 0.1, duration: 0.5, ease: "easeOut" }}
+          whileHover={{ scale: 1.05, translateY: -4 }}
+        >
+          <StatCard label={stat.label} value={stat.value} icon={stat.icon} color={stat.color} />
+        </motion.div>
+      ))}
+    </div>
+  );
+}
+
+function RecentSitesSection({ sites, loading }: { sites: Site[]; loading: boolean }) {
+  const { ref, isVisible } = useScrollAnimation();
+
+  return (
+    <motion.div
+      ref={ref}
+      initial={{ opacity: 0, y: 20 }}
+      animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+      transition={{ duration: 0.6, ease: "easeOut" }}
+      className="bg-white dark:bg-slate-800/50 border border-blue-200 dark:border-slate-700/50 rounded-lg p-6 shadow-sm dark:shadow-none"
+    >
+      <div className="flex items-center justify-between mb-6">
+        <h2 className="text-2xl font-bold text-slate-900 dark:text-white">Data Menara Terbaru</h2>
+        <Link to="/map" className="text-blue-600 dark:text-cyan-400 hover:text-blue-700 dark:hover:text-cyan-300 flex items-center gap-2 transition-colors">
+          Lihat Peta
+          <ArrowRight className="w-4 h-4" />
+        </Link>
+      </div>
+
+      {loading ? (
+        <div className="flex items-center justify-center py-12">
+          <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500 dark:border-cyan-500"></div>
+        </div>
+      ) : sites.length > 0 ? (
+        <div className="space-y-4">
+          {sites.map((site, index) => (
+            <motion.div
+              key={site.id}
+              initial={{ opacity: 0, x: -20 }}
+              animate={isVisible ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }}
+              transition={{ delay: index * 0.1, duration: 0.5, ease: "easeOut" }}
+              whileHover={{ x: 8 }}
+              className="bg-blue-50/50 dark:bg-slate-700/30 border border-blue-200 dark:border-slate-600/50 rounded-lg p-4 hover:bg-blue-100/50 dark:hover:bg-slate-700/50 transition-colors shadow-sm dark:shadow-none"
+            >
+              <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+                <div className="flex-1">
+                  <div className="flex items-center gap-2 mb-1">
+                    <span className="px-2 py-1 bg-blue-200 dark:bg-cyan-600/30 text-blue-700 dark:text-cyan-400 text-xs rounded font-semibold">
+                      #{site.nomor_urut}
+                    </span>
+                  </div>
+                  <h3 className="text-lg font-semibold text-slate-900 dark:text-white">{site.nama_site}</h3>
+                  <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">{site.alamat_site}</p>
+                  <div className="flex flex-wrap gap-2 mt-2">
+                    <span className="px-2 py-1 bg-blue-100 dark:bg-slate-600/50 text-blue-700 dark:text-slate-300 text-xs rounded">
+                      Lokasi: {site.lokasi}
+                    </span>
+                    <span className="px-2 py-1 bg-blue-100 dark:bg-slate-600/50 text-blue-700 dark:text-slate-300 text-xs rounded">
+                      {new Date(site.tanggal_checklist).toLocaleDateString('id-ID')}
+                    </span>
+                  </div>
+                </div>
+                <div className="flex items-center gap-2">
+                  <a
+                    href={`https://maps.google.com/?q=${site.koordinat_site.lat},${site.koordinat_site.lng}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="px-4 py-2 bg-blue-600/20 dark:bg-blue-600/20 text-blue-700 dark:text-blue-400 hover:bg-blue-600/30 dark:hover:bg-blue-600/30 rounded-lg text-sm font-medium transition-colors"
+                  >
+                    Lihat Lokasi
+                  </a>
+                </div>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      ) : (
+        <div className="text-center py-12">
+          <p className="text-slate-500 dark:text-slate-400 mb-4">Belum ada data menara.</p>
+          <Link to="/data-entry" className="text-blue-600 dark:text-cyan-400 hover:text-blue-700 dark:hover:text-cyan-300 transition-colors">
+            Mulai input data
+          </Link>
+        </div>
+      )}
+    </motion.div>
+  );
+}
+
 function StatCard({
   label,
   value,
