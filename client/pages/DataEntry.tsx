@@ -24,9 +24,6 @@ const CHECKLIST_ITEMS = [
 
 export default function DataEntry() {
   const { theme } = useTheme();
-  const { ref: siteDetailsRef, isVisible: siteDetailsVisible } = useScrollAnimation();
-  const { ref: checklistRef, isVisible: checklistVisible } = useScrollAnimation();
-  const { ref: submitRef, isVisible: submitVisible } = useScrollAnimation();
   const [formData, setFormData] = useState({
     nomor_urut: '',
     nama_site: '',
