@@ -6,6 +6,7 @@ import L from 'leaflet';
 import { useTheme } from '@/context/ThemeContext';
 
 export default function Map() {
+  const { theme } = useTheme();
   const [sites, setSites] = useState<Site[]>([]);
   const [selectedSite, setSelectedSite] = useState<Site | null>(null);
   const [loading, setLoading] = useState(true);
