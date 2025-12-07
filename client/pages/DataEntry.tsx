@@ -133,14 +133,14 @@ export default function DataEntry() {
     <Layout>
       <div className="max-w-4xl mx-auto">
         <div className="mb-8">
-          <h1 className="text-4xl font-bold text-white">Input Data Menara</h1>
-          <p className="text-slate-400 mt-2">Masukkan detail menara dan checklist kondisi perangkat</p>
+          <h1 className="text-4xl font-bold text-slate-900 dark:text-white">Input Data Menara</h1>
+          <p className="text-slate-500 dark:text-slate-400 mt-2">Masukkan detail menara dan checklist kondisi perangkat</p>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-8">
           {/* Site Details Section */}
-          <div className="bg-slate-800/50 border border-slate-700/50 rounded-lg p-6">
-            <h2 className="text-2xl font-bold text-white mb-6">Detail Menara</h2>
+          <div className="bg-white dark:bg-slate-800/50 border border-blue-200 dark:border-slate-700/50 rounded-lg p-6 shadow-sm dark:shadow-none">
+            <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-6">Detail Menara</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
                 <label className="block text-sm font-medium text-slate-300 mb-2">Nomor Urut *</label>
