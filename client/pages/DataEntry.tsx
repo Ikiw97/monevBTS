@@ -23,6 +23,7 @@ const CHECKLIST_ITEMS = [
 ];
 
 export default function DataEntry() {
+  const { theme } = useTheme();
   const [formData, setFormData] = useState({
     nomor_urut: '',
     nama_site: '',
