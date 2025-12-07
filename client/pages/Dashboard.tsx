@@ -3,6 +3,7 @@ import { supabase, Site, ChecklistItem } from '@/lib/supabase';
 import Layout from '@/components/Layout';
 import { ArrowRight, AlertCircle, CheckCircle, AlertTriangle } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { useTheme } from '@/context/ThemeContext';
 
 export default function Dashboard() {
   const [sites, setSites] = useState<Site[]>([]);
