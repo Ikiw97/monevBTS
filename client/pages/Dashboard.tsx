@@ -85,33 +85,33 @@ export default function Dashboard() {
             label="Total Checklist"
             value={stats.total}
             icon={<AlertCircle className="w-8 h-8" />}
-            color="bg-blue-500/10 text-blue-400"
+            color="bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-400 border-blue-200 dark:border-blue-800/50"
           />
           <StatCard
             label="Kondisi Baik"
             value={stats.baik}
             icon={<CheckCircle className="w-8 h-8" />}
-            color="bg-green-500/10 text-green-400"
+            color="bg-green-50 dark:bg-green-900/20 text-green-700 dark:text-green-400 border-green-200 dark:border-green-800/50"
           />
           <StatCard
             label="Kondisi Sedang"
             value={stats.sedang}
             icon={<AlertTriangle className="w-8 h-8" />}
-            color="bg-yellow-500/10 text-yellow-400"
+            color="bg-yellow-50 dark:bg-yellow-900/20 text-yellow-700 dark:text-yellow-400 border-yellow-200 dark:border-yellow-800/50"
           />
           <StatCard
             label="Kondisi Buruk"
             value={stats.buruk}
             icon={<AlertCircle className="w-8 h-8" />}
-            color="bg-red-500/10 text-red-400"
+            color="bg-red-50 dark:bg-red-900/20 text-red-700 dark:text-red-400 border-red-200 dark:border-red-800/50"
           />
         </div>
 
         {/* Recent Sites */}
-        <div className="bg-slate-800/50 border border-slate-700/50 rounded-lg p-6">
+        <div className="bg-white dark:bg-slate-800/50 border border-blue-200 dark:border-slate-700/50 rounded-lg p-6 shadow-sm dark:shadow-none">
           <div className="flex items-center justify-between mb-6">
-            <h2 className="text-2xl font-bold text-white">Data Menara Terbaru</h2>
-            <Link to="/map" className="text-cyan-400 hover:text-cyan-300 flex items-center gap-2 transition-colors">
+            <h2 className="text-2xl font-bold text-slate-900 dark:text-white">Data Menara Terbaru</h2>
+            <Link to="/map" className="text-blue-600 dark:text-cyan-400 hover:text-blue-700 dark:hover:text-cyan-300 flex items-center gap-2 transition-colors">
               Lihat Peta
               <ArrowRight className="w-4 h-4" />
             </Link>
