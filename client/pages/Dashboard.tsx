@@ -80,7 +80,32 @@ export default function Dashboard() {
         </div>
 
         {/* Stats Cards */}
-        <StatsGrid stats={stats} />
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+          <StatCard
+            label="Total Checklist"
+            value={stats.total}
+            icon={<AlertCircle className="w-8 h-8" />}
+            color="bg-blue-500 text-white"
+          />
+          <StatCard
+            label="Kondisi Baik"
+            value={stats.baik}
+            icon={<CheckCircle className="w-8 h-8" />}
+            color="bg-green-500 text-white"
+          />
+          <StatCard
+            label="Kondisi Sedang"
+            value={stats.sedang}
+            icon={<AlertTriangle className="w-8 h-8" />}
+            color="bg-yellow-500 text-white"
+          />
+          <StatCard
+            label="Kondisi Buruk"
+            value={stats.buruk}
+            icon={<AlertCircle className="w-8 h-8" />}
+            color="bg-red-500 text-white"
+          />
+        </div>
 
         {/* Recent Sites */}
         <RecentSitesSection sites={sites} loading={loading} />
