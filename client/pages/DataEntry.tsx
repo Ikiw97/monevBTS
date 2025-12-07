@@ -149,7 +149,7 @@ export default function DataEntry() {
                   value={formData.nomor_urut}
                   onChange={(e) => handleFormChange('nomor_urut', e.target.value)}
                   placeholder="Contoh: 1, 2, 3..."
-                  className="w-full bg-blue-50 dark:bg-slate-700/50 border border-blue-200 dark:border-slate-600 rounded-lg px-4 py-2 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-cyan-500 transition-all"
+                  className="w-full bg-white dark:bg-slate-700 rounded-lg px-4 py-2 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-cyan-500 transition-all"
                   required
                 />
               </div>
@@ -161,7 +161,7 @@ export default function DataEntry() {
                   value={formData.nama_site}
                   onChange={(e) => handleFormChange('nama_site', e.target.value)}
                   placeholder="Contoh: PT PROTELINDO"
-                  className="w-full bg-blue-50 dark:bg-slate-700/50 border border-blue-200 dark:border-slate-600 rounded-lg px-4 py-2 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-cyan-500 transition-all"
+                  className="w-full bg-white dark:bg-slate-700 rounded-lg px-4 py-2 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-cyan-500 transition-all"
                   required
                 />
               </div>
@@ -171,7 +171,7 @@ export default function DataEntry() {
                 <select
                   value={formData.lokasi}
                   onChange={(e) => handleFormChange('lokasi', e.target.value)}
-                  className="w-full bg-blue-50 dark:bg-slate-700/50 border border-blue-200 dark:border-slate-600 rounded-lg px-4 py-2 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-cyan-500 transition-all"
+                  className="w-full bg-white dark:bg-slate-700 rounded-lg px-4 py-2 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-cyan-500 transition-all"
                 >
                   {LOKASI_OPTIONS.map(opt => (
                     <option key={opt} value={opt}>{opt}</option>
@@ -186,7 +186,7 @@ export default function DataEntry() {
                   onChange={(e) => handleFormChange('alamat_site', e.target.value)}
                   placeholder="Masukkan alamat lengkap menara"
                   rows={2}
-                  className="w-full bg-blue-50 dark:bg-slate-700/50 border border-blue-200 dark:border-slate-600 rounded-lg px-4 py-2 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-cyan-500 transition-all"
+                  className="w-full bg-white dark:bg-slate-700 rounded-lg px-4 py-2 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-cyan-500 transition-all"
                   required
                 />
               </div>
@@ -199,7 +199,7 @@ export default function DataEntry() {
                   value={formData.lat}
                   onChange={(e) => handleFormChange('lat', e.target.value)}
                   placeholder="Contoh: -6.2088"
-                  className="w-full bg-blue-50 dark:bg-slate-700/50 border border-blue-200 dark:border-slate-600 rounded-lg px-4 py-2 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-cyan-500 transition-all"
+                  className="w-full bg-white dark:bg-slate-700 rounded-lg px-4 py-2 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-cyan-500 transition-all"
                   required
                 />
               </div>
@@ -212,7 +212,7 @@ export default function DataEntry() {
                   value={formData.lng}
                   onChange={(e) => handleFormChange('lng', e.target.value)}
                   placeholder="Contoh: 106.8456"
-                  className="w-full bg-blue-50 dark:bg-slate-700/50 border border-blue-200 dark:border-slate-600 rounded-lg px-4 py-2 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-cyan-500 transition-all"
+                  className="w-full bg-white dark:bg-slate-700 rounded-lg px-4 py-2 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-cyan-500 transition-all"
                   required
                 />
               </div>
@@ -223,7 +223,7 @@ export default function DataEntry() {
                   type="date"
                   value={formData.tanggal_checklist}
                   onChange={(e) => handleFormChange('tanggal_checklist', e.target.value)}
-                  className="w-full bg-blue-50 dark:bg-slate-700/50 border border-blue-200 dark:border-slate-600 rounded-lg px-4 py-2 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-cyan-500 transition-all"
+                  className="w-full bg-white dark:bg-slate-700 rounded-lg px-4 py-2 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-cyan-500 transition-all"
                   required
                 />
               </div>
@@ -254,7 +254,7 @@ export default function DataEntry() {
                         <select
                           value={item.kondisi}
                           onChange={(e) => handleChecklistChange(index, 'kondisi', e.target.value)}
-                          className="bg-blue-50 dark:bg-slate-700/50 border border-blue-200 dark:border-slate-600 rounded px-2 py-1 text-slate-900 dark:text-white text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-cyan-500 transition-all"
+                          className="bg-white dark:bg-slate-700 rounded px-2 py-1 text-slate-900 dark:text-white text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-cyan-500 transition-all"
                         >
                           <option value="baik">Baik</option>
                           <option value="sedang">Sedang</option>
@@ -267,7 +267,7 @@ export default function DataEntry() {
                           value={item.keterangan}
                           onChange={(e) => handleChecklistChange(index, 'keterangan', e.target.value)}
                           placeholder="Catatan..."
-                          className="w-full bg-blue-50 dark:bg-slate-700/50 border border-blue-200 dark:border-slate-600 rounded px-2 py-1 text-slate-900 dark:text-white text-sm placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-cyan-500 transition-all"
+                          className="w-full bg-white dark:bg-slate-700 rounded px-2 py-1 text-slate-900 dark:text-white text-sm placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-cyan-500 transition-all"
                         />
                       </td>
                     </tr>
