@@ -1,14 +1,24 @@
-import { useEffect, useState } from 'react';
-import { supabase, Site, ChecklistItem } from '@/lib/supabase';
-import Layout from '@/components/Layout';
-import { ArrowRight, AlertCircle, CheckCircle, AlertTriangle } from 'lucide-react';
-import { Link } from 'react-router-dom';
-import { useTheme } from '@/context/ThemeContext';
+import { useEffect, useState } from "react";
+import { supabase, Site, ChecklistItem } from "@/lib/supabase";
+import Layout from "@/components/Layout";
+import {
+  ArrowRight,
+  AlertCircle,
+  CheckCircle,
+  AlertTriangle,
+} from "lucide-react";
+import { Link } from "react-router-dom";
+import { useTheme } from "@/context/ThemeContext";
 
 export default function Dashboard() {
   const { theme } = useTheme();
   const [sites, setSites] = useState<Site[]>([]);
-  const [stats, setStats] = useState({ total: 0, baik: 0, sedang: 0, buruk: 0 });
+  const [stats, setStats] = useState({
+    total: 0,
+    baik: 0,
+    sedang: 0,
+    buruk: 0,
+  });
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -19,9 +29,9 @@ export default function Dashboard() {
     try {
       setLoading(true);
       const { data: sitesData, error: sitesError } = await supabase
-        .from('sites')
-        .select('*')
-        .order('created_at', { ascending: false })
+        .from("sites")
+        .select("*")
+        .order("created_at", { ascending: false })
         .limit(5);
 
       if (sitesError) throw sitesError;
@@ -29,20 +39,22 @@ export default function Dashboard() {
 
       // Calculate stats
       const { data: checklistData } = await supabase
-        .from('checklist_items')
-        .select('kondisi');
+        .from("checklist_items")
+        .select("kondisi");
 
       if (checklistData) {
         const statsData = {
           total: checklistData.length,
-          baik: checklistData.filter(item => item.kondisi === 'baik').length,
-          sedang: checklistData.filter(item => item.kondisi === 'sedang').length,
-          buruk: checklistData.filter(item => item.kondisi === 'buruk').length,
+          baik: checklistData.filter((item) => item.kondisi === "baik").length,
+          sedang: checklistData.filter((item) => item.kondisi === "sedang")
+            .length,
+          buruk: checklistData.filter((item) => item.kondisi === "buruk")
+            .length,
         };
         setStats(statsData);
       }
     } catch (error) {
-      console.error('Error fetching dashboard data:', error);
+      console.error("Error fetching dashboard data:", error);
     } finally {
       setLoading(false);
     }
@@ -50,14 +62,14 @@ export default function Dashboard() {
 
   const getConditionColor = (kondisi: string) => {
     switch (kondisi) {
-      case 'baik':
-        return 'bg-green-500/20 text-green-400';
-      case 'sedang':
-        return 'bg-yellow-500/20 text-yellow-400';
-      case 'buruk':
-        return 'bg-red-500/20 text-red-400';
+      case "baik":
+        return "bg-green-500/20 text-green-400";
+      case "sedang":
+        return "bg-yellow-500/20 text-yellow-400";
+      case "buruk":
+        return "bg-red-500/20 text-red-400";
       default:
-        return 'bg-slate-500/20 text-slate-400';
+        return "bg-slate-500/20 text-slate-400";
     }
   };
 
@@ -67,8 +79,12 @@ export default function Dashboard() {
         {/* Page Header */}
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
           <div>
-            <h1 className="text-4xl font-bold text-slate-900 dark:text-white">Dashboard</h1>
-            <p className="text-slate-500 dark:text-slate-400 mt-2">Monitoring dan evaluasi menara BTS</p>
+            <h1 className="text-4xl font-bold text-slate-900 dark:text-white">
+              Dashboard
+            </h1>
+            <p className="text-slate-500 dark:text-slate-400 mt-2">
+              Monitoring dan evaluasi menara BTS
+            </p>
           </div>
           <Link
             to="/data-entry"
@@ -110,8 +126,13 @@ export default function Dashboard() {
         {/* Recent Sites */}
         <div className="bg-white dark:bg-slate-800 rounded-lg p-6 shadow-md dark:shadow-lg">
           <div className="flex items-center justify-between mb-6">
-            <h2 className="text-2xl font-bold text-slate-900 dark:text-white">Data Menara Terbaru</h2>
-            <Link to="/map" className="text-blue-600 dark:text-cyan-400 hover:text-blue-700 dark:hover:text-cyan-300 flex items-center gap-2 transition-colors">
+            <h2 className="text-2xl font-bold text-slate-900 dark:text-white">
+              Data Menara Terbaru
+            </h2>
+            <Link
+              to="/map"
+              className="text-blue-600 dark:text-cyan-400 hover:text-blue-700 dark:hover:text-cyan-300 flex items-center gap-2 transition-colors"
+            >
               Lihat Peta
               <ArrowRight className="w-4 h-4" />
             </Link>
@@ -124,7 +145,10 @@ export default function Dashboard() {
           ) : sites.length > 0 ? (
             <div className="space-y-4">
               {sites.map((site) => (
-                <div key={site.id} className="bg-blue-100 dark:bg-slate-700 rounded-lg p-4 hover:shadow-md transition-all">
+                <div
+                  key={site.id}
+                  className="bg-blue-100 dark:bg-slate-700 rounded-lg p-4 hover:shadow-md transition-all"
+                >
                   <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
                     <div className="flex-1">
                       <div className="flex items-center gap-2 mb-1">
@@ -132,14 +156,20 @@ export default function Dashboard() {
                           #{site.nomor_urut}
                         </span>
                       </div>
-                      <h3 className="text-lg font-semibold text-slate-900 dark:text-white">{site.nama_site}</h3>
-                      <p className="text-slate-700 dark:text-slate-300 text-sm mt-1">{site.alamat_site}</p>
+                      <h3 className="text-lg font-semibold text-slate-900 dark:text-white">
+                        {site.nama_site}
+                      </h3>
+                      <p className="text-slate-700 dark:text-slate-300 text-sm mt-1">
+                        {site.alamat_site}
+                      </p>
                       <div className="flex flex-wrap gap-2 mt-2">
                         <span className="px-2 py-1 bg-blue-200 dark:bg-slate-600 text-slate-800 dark:text-slate-200 text-xs rounded">
                           Lokasi: {site.lokasi}
                         </span>
                         <span className="px-2 py-1 bg-blue-200 dark:bg-slate-600 text-slate-800 dark:text-slate-200 text-xs rounded">
-                          {new Date(site.tanggal_checklist).toLocaleDateString('id-ID')}
+                          {new Date(site.tanggal_checklist).toLocaleDateString(
+                            "id-ID",
+                          )}
                         </span>
                       </div>
                     </div>
@@ -159,8 +189,13 @@ export default function Dashboard() {
             </div>
           ) : (
             <div className="text-center py-12">
-              <p className="text-slate-600 dark:text-slate-400 mb-4">Belum ada data menara.</p>
-              <Link to="/data-entry" className="text-blue-600 dark:text-cyan-400 hover:text-blue-700 dark:hover:text-cyan-300 transition-colors">
+              <p className="text-slate-600 dark:text-slate-400 mb-4">
+                Belum ada data menara.
+              </p>
+              <Link
+                to="/data-entry"
+                className="text-blue-600 dark:text-cyan-400 hover:text-blue-700 dark:hover:text-cyan-300 transition-colors"
+              >
                 Mulai input data
               </Link>
             </div>
@@ -170,7 +205,6 @@ export default function Dashboard() {
     </Layout>
   );
 }
-
 
 function StatCard({
   label,
@@ -184,7 +218,9 @@ function StatCard({
   color: string;
 }) {
   return (
-    <div className={`${color} rounded-lg p-4 shadow-md hover:shadow-lg transition-shadow`}>
+    <div
+      className={`${color} rounded-lg p-4 shadow-md hover:shadow-lg transition-shadow`}
+    >
       <div className="flex items-start justify-between">
         <div>
           <p className="opacity-80 text-sm font-medium">{label}</p>
@@ -198,7 +234,14 @@ function StatCard({
 
 function Plus(props: React.SVGProps<SVGSVGElement>) {
   return (
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" {...props}>
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      {...props}
+    >
       <line x1="12" y1="5" x2="12" y2="19" />
       <line x1="5" y1="12" x2="19" y2="12" />
     </svg>
