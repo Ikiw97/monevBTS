@@ -4,6 +4,8 @@ import Layout from '@/components/Layout';
 import { ExternalLink } from 'lucide-react';
 import L from 'leaflet';
 import { useTheme } from '@/context/ThemeContext';
+import { motion } from 'framer-motion';
+import { useScrollAnimation } from '@/hooks/use-scroll-animation';
 
 export default function Map() {
   const { theme } = useTheme();
