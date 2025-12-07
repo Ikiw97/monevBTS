@@ -236,25 +236,25 @@ export default function DataEntry() {
             <div className="overflow-x-auto">
               <table className="w-full">
                 <thead>
-                  <tr className="border-b border-slate-700">
-                    <th className="px-4 py-3 text-left text-sm font-semibold text-slate-300">No</th>
-                    <th className="px-4 py-3 text-left text-sm font-semibold text-slate-300">Material</th>
-                    <th className="px-4 py-3 text-left text-sm font-semibold text-slate-300">Spesifikasi</th>
-                    <th className="px-4 py-3 text-left text-sm font-semibold text-slate-300">Kondisi</th>
-                    <th className="px-4 py-3 text-left text-sm font-semibold text-slate-300">Keterangan</th>
+                  <tr className="border-b border-blue-200 dark:border-slate-700">
+                    <th className="px-4 py-3 text-left text-sm font-semibold text-slate-700 dark:text-slate-300">No</th>
+                    <th className="px-4 py-3 text-left text-sm font-semibold text-slate-700 dark:text-slate-300">Material</th>
+                    <th className="px-4 py-3 text-left text-sm font-semibold text-slate-700 dark:text-slate-300">Spesifikasi</th>
+                    <th className="px-4 py-3 text-left text-sm font-semibold text-slate-700 dark:text-slate-300">Kondisi</th>
+                    <th className="px-4 py-3 text-left text-sm font-semibold text-slate-700 dark:text-slate-300">Keterangan</th>
                   </tr>
                 </thead>
                 <tbody>
                   {checklistData.map((item, index) => (
-                    <tr key={index} className="border-b border-slate-700/50 hover:bg-slate-700/20 transition-colors">
-                      <td className="px-4 py-3 text-slate-300 text-sm">{item.nomor}</td>
-                      <td className="px-4 py-3 text-slate-300 text-sm font-medium">{item.material}</td>
-                      <td className="px-4 py-3 text-slate-400 text-sm">{item.spesifikasi}</td>
+                    <tr key={index} className="border-b border-blue-100 dark:border-slate-700/50 hover:bg-blue-50/50 dark:hover:bg-slate-700/20 transition-colors">
+                      <td className="px-4 py-3 text-slate-700 dark:text-slate-300 text-sm">{item.nomor}</td>
+                      <td className="px-4 py-3 text-slate-700 dark:text-slate-300 text-sm font-medium">{item.material}</td>
+                      <td className="px-4 py-3 text-slate-600 dark:text-slate-400 text-sm">{item.spesifikasi}</td>
                       <td className="px-4 py-3">
                         <select
                           value={item.kondisi}
                           onChange={(e) => handleChecklistChange(index, 'kondisi', e.target.value)}
-                          className="bg-slate-700/50 border border-slate-600 rounded px-2 py-1 text-white text-sm focus:outline-none focus:ring-2 focus:ring-cyan-500 transition-all"
+                          className="bg-blue-50 dark:bg-slate-700/50 border border-blue-200 dark:border-slate-600 rounded px-2 py-1 text-slate-900 dark:text-white text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-cyan-500 transition-all"
                         >
                           <option value="baik">Baik</option>
                           <option value="sedang">Sedang</option>
@@ -267,7 +267,7 @@ export default function DataEntry() {
                           value={item.keterangan}
                           onChange={(e) => handleChecklistChange(index, 'keterangan', e.target.value)}
                           placeholder="Catatan..."
-                          className="w-full bg-slate-700/50 border border-slate-600 rounded px-2 py-1 text-white text-sm placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-cyan-500 transition-all"
+                          className="w-full bg-blue-50 dark:bg-slate-700/50 border border-blue-200 dark:border-slate-600 rounded px-2 py-1 text-slate-900 dark:text-white text-sm placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-cyan-500 transition-all"
                         />
                       </td>
                     </tr>
