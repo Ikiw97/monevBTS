@@ -143,35 +143,35 @@ export default function DataEntry() {
             <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-6">Detail Menara</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <label className="block text-sm font-medium text-slate-300 mb-2">Nomor Urut *</label>
+                <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">Nomor Urut *</label>
                 <input
                   type="number"
                   value={formData.nomor_urut}
                   onChange={(e) => handleFormChange('nomor_urut', e.target.value)}
                   placeholder="Contoh: 1, 2, 3..."
-                  className="w-full bg-slate-700/50 border border-slate-600 rounded-lg px-4 py-2 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-cyan-500 transition-all"
+                  className="w-full bg-blue-50 dark:bg-slate-700/50 border border-blue-200 dark:border-slate-600 rounded-lg px-4 py-2 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-cyan-500 transition-all"
                   required
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-slate-300 mb-2">Nama Site *</label>
+                <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">Nama Site *</label>
                 <input
                   type="text"
                   value={formData.nama_site}
                   onChange={(e) => handleFormChange('nama_site', e.target.value)}
                   placeholder="Contoh: PT PROTELINDO"
-                  className="w-full bg-slate-700/50 border border-slate-600 rounded-lg px-4 py-2 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-cyan-500 transition-all"
+                  className="w-full bg-blue-50 dark:bg-slate-700/50 border border-blue-200 dark:border-slate-600 rounded-lg px-4 py-2 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-cyan-500 transition-all"
                   required
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-slate-300 mb-2">Lokasi *</label>
+                <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">Lokasi *</label>
                 <select
                   value={formData.lokasi}
                   onChange={(e) => handleFormChange('lokasi', e.target.value)}
-                  className="w-full bg-slate-700/50 border border-slate-600 rounded-lg px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-cyan-500 transition-all"
+                  className="w-full bg-blue-50 dark:bg-slate-700/50 border border-blue-200 dark:border-slate-600 rounded-lg px-4 py-2 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-cyan-500 transition-all"
                 >
                   {LOKASI_OPTIONS.map(opt => (
                     <option key={opt} value={opt}>{opt}</option>
@@ -180,50 +180,50 @@ export default function DataEntry() {
               </div>
 
               <div className="md:col-span-2">
-                <label className="block text-sm font-medium text-slate-300 mb-2">Alamat Site *</label>
+                <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">Alamat Site *</label>
                 <textarea
                   value={formData.alamat_site}
                   onChange={(e) => handleFormChange('alamat_site', e.target.value)}
                   placeholder="Masukkan alamat lengkap menara"
                   rows={2}
-                  className="w-full bg-slate-700/50 border border-slate-600 rounded-lg px-4 py-2 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-cyan-500 transition-all"
+                  className="w-full bg-blue-50 dark:bg-slate-700/50 border border-blue-200 dark:border-slate-600 rounded-lg px-4 py-2 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-cyan-500 transition-all"
                   required
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-slate-300 mb-2">Latitude *</label>
+                <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">Latitude *</label>
                 <input
                   type="number"
                   step="0.000001"
                   value={formData.lat}
                   onChange={(e) => handleFormChange('lat', e.target.value)}
                   placeholder="Contoh: -6.2088"
-                  className="w-full bg-slate-700/50 border border-slate-600 rounded-lg px-4 py-2 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-cyan-500 transition-all"
+                  className="w-full bg-blue-50 dark:bg-slate-700/50 border border-blue-200 dark:border-slate-600 rounded-lg px-4 py-2 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-cyan-500 transition-all"
                   required
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-slate-300 mb-2">Longitude *</label>
+                <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">Longitude *</label>
                 <input
                   type="number"
                   step="0.000001"
                   value={formData.lng}
                   onChange={(e) => handleFormChange('lng', e.target.value)}
                   placeholder="Contoh: 106.8456"
-                  className="w-full bg-slate-700/50 border border-slate-600 rounded-lg px-4 py-2 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-cyan-500 transition-all"
+                  className="w-full bg-blue-50 dark:bg-slate-700/50 border border-blue-200 dark:border-slate-600 rounded-lg px-4 py-2 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-cyan-500 transition-all"
                   required
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-slate-300 mb-2">Tanggal Checklist *</label>
+                <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">Tanggal Checklist *</label>
                 <input
                   type="date"
                   value={formData.tanggal_checklist}
                   onChange={(e) => handleFormChange('tanggal_checklist', e.target.value)}
-                  className="w-full bg-slate-700/50 border border-slate-600 rounded-lg px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-cyan-500 transition-all"
+                  className="w-full bg-blue-50 dark:bg-slate-700/50 border border-blue-200 dark:border-slate-600 rounded-lg px-4 py-2 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-cyan-500 transition-all"
                   required
                 />
               </div>
@@ -231,8 +231,8 @@ export default function DataEntry() {
           </div>
 
           {/* Checklist Section */}
-          <div className="bg-slate-800/50 border border-slate-700/50 rounded-lg p-6">
-            <h2 className="text-2xl font-bold text-white mb-6">Checklist Perangkat</h2>
+          <div className="bg-white dark:bg-slate-800/50 border border-blue-200 dark:border-slate-700/50 rounded-lg p-6 shadow-sm dark:shadow-none">
+            <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-6">Checklist Perangkat</h2>
             <div className="overflow-x-auto">
               <table className="w-full">
                 <thead>
