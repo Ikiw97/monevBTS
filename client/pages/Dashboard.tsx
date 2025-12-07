@@ -119,26 +119,26 @@ export default function Dashboard() {
 
           {loading ? (
             <div className="flex items-center justify-center py-12">
-              <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-cyan-500"></div>
+              <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500 dark:border-cyan-500"></div>
             </div>
           ) : sites.length > 0 ? (
             <div className="space-y-4">
               {sites.map((site) => (
-                <div key={site.id} className="bg-slate-700/30 border border-slate-600/50 rounded-lg p-4 hover:bg-slate-700/50 transition-colors">
+                <div key={site.id} className="bg-blue-50/50 dark:bg-slate-700/30 border border-blue-200 dark:border-slate-600/50 rounded-lg p-4 hover:bg-blue-100/50 dark:hover:bg-slate-700/50 transition-colors shadow-sm dark:shadow-none">
                   <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
                     <div className="flex-1">
                       <div className="flex items-center gap-2 mb-1">
-                        <span className="px-2 py-1 bg-cyan-600/30 text-cyan-400 text-xs rounded font-semibold">
+                        <span className="px-2 py-1 bg-blue-200 dark:bg-cyan-600/30 text-blue-700 dark:text-cyan-400 text-xs rounded font-semibold">
                           #{site.nomor_urut}
                         </span>
                       </div>
-                      <h3 className="text-lg font-semibold text-white">{site.nama_site}</h3>
-                      <p className="text-slate-400 text-sm mt-1">{site.alamat_site}</p>
+                      <h3 className="text-lg font-semibold text-slate-900 dark:text-white">{site.nama_site}</h3>
+                      <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">{site.alamat_site}</p>
                       <div className="flex flex-wrap gap-2 mt-2">
-                        <span className="px-2 py-1 bg-slate-600/50 text-slate-300 text-xs rounded">
+                        <span className="px-2 py-1 bg-blue-100 dark:bg-slate-600/50 text-blue-700 dark:text-slate-300 text-xs rounded">
                           Lokasi: {site.lokasi}
                         </span>
-                        <span className="px-2 py-1 bg-slate-600/50 text-slate-300 text-xs rounded">
+                        <span className="px-2 py-1 bg-blue-100 dark:bg-slate-600/50 text-blue-700 dark:text-slate-300 text-xs rounded">
                           {new Date(site.tanggal_checklist).toLocaleDateString('id-ID')}
                         </span>
                       </div>
@@ -148,7 +148,7 @@ export default function Dashboard() {
                         href={`https://maps.google.com/?q=${site.koordinat_site.lat},${site.koordinat_site.lng}`}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="px-4 py-2 bg-blue-600/20 text-blue-400 hover:bg-blue-600/30 rounded-lg text-sm font-medium transition-colors"
+                        className="px-4 py-2 bg-blue-600/20 dark:bg-blue-600/20 text-blue-700 dark:text-blue-400 hover:bg-blue-600/30 dark:hover:bg-blue-600/30 rounded-lg text-sm font-medium transition-colors"
                       >
                         Lihat Lokasi
                       </a>
@@ -159,8 +159,8 @@ export default function Dashboard() {
             </div>
           ) : (
             <div className="text-center py-12">
-              <p className="text-slate-400 mb-4">Belum ada data menara.</p>
-              <Link to="/data-entry" className="text-cyan-400 hover:text-cyan-300 transition-colors">
+              <p className="text-slate-500 dark:text-slate-400 mb-4">Belum ada data menara.</p>
+              <Link to="/data-entry" className="text-blue-600 dark:text-cyan-400 hover:text-blue-700 dark:hover:text-cyan-300 transition-colors">
                 Mulai input data
               </Link>
             </div>
