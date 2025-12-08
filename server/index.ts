@@ -25,6 +25,12 @@ export function createServer() {
   });
 
   app.get("/api/demo", handleDemo);
+    // Supabase routes
+  app.get("/api/supabase/test", handleTestConnection);
+  app.get("/api/supabase/:tableName", handleGetData);
+  app.post("/api/supabase/:tableName", handleInsertData);
+  app.put("/api/supabase/:tableName/:id", handleUpdateData);
+  app.delete("/api/supabase/:tableName/:id", handleDeleteData);
 
   return app;
 }
