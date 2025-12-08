@@ -3,6 +3,7 @@ import { supabase, Site, ChecklistItem } from "@/lib/supabase";
 import Layout from "@/components/Layout";
 import { Save, AlertCircle } from "lucide-react";
 import { useTheme } from "@/context/ThemeContext";
+import { motion, AnimatePresence } from "framer-motion";
 
 const LOKASI_OPTIONS = ["P", "K", "S", "PK", "JU", "JL", "JT"];
 
@@ -153,59 +154,56 @@ export default function DataEntry() {
   return (
     <Layout>
       <div className="max-w-4xl mx-auto">
-        <div className="mb-8">
+        <motion.div
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="mb-8"
+        >
           <h1 className="text-4xl font-bold text-slate-900 dark:text-white">
             Input Data Menara
           </h1>
           <p className="text-slate-500 dark:text-slate-400 mt-2">
             Masukkan detail menara dan checklist kondisi perangkat
           </p>
-        </div>
+        </motion.div>
 
         <form onSubmit={handleSubmit} className="space-y-8">
           {/* Site Details Section */}
-          <div className="bg-blue-50 dark:bg-slate-800 rounded-lg p-6 shadow-md">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+            className="bg-blue-50 dark:bg-slate-800 rounded-lg p-6 shadow-md"
+          >
             <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-6">
               Detail Menara
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div>
-                <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
-                  Nomor Urut *
-                </label>
-                <input
-                  type="number"
-                  value={formData.nomor_urut}
-                  onChange={(e) =>
-                    handleFormChange("nomor_urut", e.target.value)
-                  }
-                  placeholder="Contoh: 1, 2, 3..."
-                  className="w-full bg-white dark:bg-slate-700 rounded-lg px-4 py-2 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-cyan-500 transition-all"
-                  required
-                />
-              </div>
+              <FormInput
+                label="Nomor Urut *"
+                type="number"
+                value={formData.nomor_urut}
+                onChange={(value) => handleFormChange("nomor_urut", value)}
+                placeholder="Contoh: 1, 2, 3..."
+                required
+              />
 
-              <div>
-                <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
-                  Nama Site *
-                </label>
-                <input
-                  type="text"
-                  value={formData.nama_site}
-                  onChange={(e) =>
-                    handleFormChange("nama_site", e.target.value)
-                  }
-                  placeholder="Contoh: PT PROTELINDO"
-                  className="w-full bg-white dark:bg-slate-700 rounded-lg px-4 py-2 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-cyan-500 transition-all"
-                  required
-                />
-              </div>
+              <FormInput
+                label="Nama Site *"
+                type="text"
+                value={formData.nama_site}
+                onChange={(value) => handleFormChange("nama_site", value)}
+                placeholder="Contoh: PT PROTELINDO"
+                required
+              />
 
               <div>
                 <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
                   Lokasi *
                 </label>
-                <select
+                <motion.select
+                  whileFocus={{ scale: 1.02 }}
                   value={formData.lokasi}
                   onChange={(e) => handleFormChange("lokasi", e.target.value)}
                   className="w-full bg-white dark:bg-slate-700 rounded-lg px-4 py-2 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-cyan-500 transition-all"
@@ -215,14 +213,15 @@ export default function DataEntry() {
                       {opt}
                     </option>
                   ))}
-                </select>
+                </motion.select>
               </div>
 
               <div className="md:col-span-2">
                 <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
                   Alamat Site *
                 </label>
-                <textarea
+                <motion.textarea
+                  whileFocus={{ scale: 1.01 }}
                   value={formData.alamat_site}
                   onChange={(e) =>
                     handleFormChange("alamat_site", e.target.value)
@@ -234,55 +233,45 @@ export default function DataEntry() {
                 />
               </div>
 
-              <div>
-                <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
-                  Latitude *
-                </label>
-                <input
-                  type="number"
-                  step="0.000001"
-                  value={formData.lat}
-                  onChange={(e) => handleFormChange("lat", e.target.value)}
-                  placeholder="Contoh: -6.2088"
-                  className="w-full bg-white dark:bg-slate-700 rounded-lg px-4 py-2 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-cyan-500 transition-all"
-                  required
-                />
-              </div>
+              <FormInput
+                label="Latitude *"
+                type="number"
+                step="0.000001"
+                value={formData.lat}
+                onChange={(value) => handleFormChange("lat", value)}
+                placeholder="Contoh: -6.2088"
+                required
+              />
 
-              <div>
-                <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
-                  Longitude *
-                </label>
-                <input
-                  type="number"
-                  step="0.000001"
-                  value={formData.lng}
-                  onChange={(e) => handleFormChange("lng", e.target.value)}
-                  placeholder="Contoh: 106.8456"
-                  className="w-full bg-white dark:bg-slate-700 rounded-lg px-4 py-2 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-cyan-500 transition-all"
-                  required
-                />
-              </div>
+              <FormInput
+                label="Longitude *"
+                type="number"
+                step="0.000001"
+                value={formData.lng}
+                onChange={(value) => handleFormChange("lng", value)}
+                placeholder="Contoh: 106.8456"
+                required
+              />
 
-              <div>
-                <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
-                  Tanggal Checklist *
-                </label>
-                <input
-                  type="date"
-                  value={formData.tanggal_checklist}
-                  onChange={(e) =>
-                    handleFormChange("tanggal_checklist", e.target.value)
-                  }
-                  className="w-full bg-white dark:bg-slate-700 rounded-lg px-4 py-2 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-cyan-500 transition-all"
-                  required
-                />
-              </div>
+              <FormInput
+                label="Tanggal Checklist *"
+                type="date"
+                value={formData.tanggal_checklist}
+                onChange={(value) =>
+                  handleFormChange("tanggal_checklist", value)
+                }
+                required
+              />
             </div>
-          </div>
+          </motion.div>
 
           {/* Checklist Section */}
-          <div className="bg-blue-50 dark:bg-slate-800 rounded-lg p-6 shadow-md">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="bg-blue-50 dark:bg-slate-800 rounded-lg p-6 shadow-md"
+          >
             <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-6">
               Checklist Perangkat
             </h2>
@@ -309,9 +298,13 @@ export default function DataEntry() {
                 </thead>
                 <tbody>
                   {checklistData.map((item, index) => (
-                    <tr
+                    <motion.tr
                       key={index}
-                      className="border-b border-blue-100 dark:border-slate-700/50 hover:bg-blue-50/50 dark:hover:bg-slate-700/20 transition-colors"
+                      initial={{ opacity: 0, x: -20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: index * 0.05 }}
+                      whileHover={{ backgroundColor: 'rgba(59, 130, 246, 0.05)' }}
+                      className="border-b border-blue-100 dark:border-slate-700/50 transition-colors"
                     >
                       <td className="px-4 py-3 text-slate-700 dark:text-slate-300 text-sm">
                         {item.nomor}
@@ -323,7 +316,8 @@ export default function DataEntry() {
                         {item.spesifikasi}
                       </td>
                       <td className="px-4 py-3">
-                        <select
+                        <motion.select
+                          whileFocus={{ scale: 1.05 }}
                           value={item.kondisi}
                           onChange={(e) =>
                             handleChecklistChange(
@@ -337,10 +331,11 @@ export default function DataEntry() {
                           <option value="baik">Baik</option>
                           <option value="sedang">Sedang</option>
                           <option value="buruk">Buruk</option>
-                        </select>
+                        </motion.select>
                       </td>
                       <td className="px-4 py-3">
-                        <input
+                        <motion.input
+                          whileFocus={{ scale: 1.02 }}
                           type="text"
                           value={item.keterangan}
                           onChange={(e) =>
@@ -354,34 +349,92 @@ export default function DataEntry() {
                           className="w-full bg-white dark:bg-slate-700 rounded px-2 py-1 text-slate-900 dark:text-white text-sm placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-cyan-500 transition-all"
                         />
                       </td>
-                    </tr>
+                    </motion.tr>
                   ))}
                 </tbody>
               </table>
             </div>
-          </div>
+          </motion.div>
 
           {/* Message */}
-          {message && (
-            <div
-              className={`p-4 rounded-lg flex items-center gap-3 ${message.startsWith("✓") ? "bg-green-50 dark:bg-green-900/20 text-green-700 dark:text-green-400 border border-green-200 dark:border-green-800/50" : "bg-red-50 dark:bg-red-900/20 text-red-700 dark:text-red-400 border border-red-200 dark:border-red-800/50"}`}
-            >
-              <AlertCircle className="w-5 h-5" />
-              {message}
-            </div>
-          )}
+          <AnimatePresence>
+            {message && (
+              <motion.div
+                initial={{ opacity: 0, y: -10, scale: 0.95 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, y: -10, scale: 0.95 }}
+                transition={{ type: 'spring', stiffness: 300 }}
+                className={`p-4 rounded-lg flex items-center gap-3 ${message.startsWith("✓") ? "bg-green-50 dark:bg-green-900/20 text-green-700 dark:text-green-400 border border-green-200 dark:border-green-800/50" : "bg-red-50 dark:bg-red-900/20 text-red-700 dark:text-red-400 border border-red-200 dark:border-red-800/50"}`}
+              >
+                <motion.div
+                  animate={{ rotate: message.startsWith("✓") ? 360 : 0 }}
+                  transition={{ duration: 0.5 }}
+                >
+                  <AlertCircle className="w-5 h-5" />
+                </motion.div>
+                {message}
+              </motion.div>
+            )}
+          </AnimatePresence>
 
           {/* Submit Button */}
-          <button
+          <motion.button
             type="submit"
             disabled={loading}
+            whileHover={{ scale: loading ? 1 : 1.02 }}
+            whileTap={{ scale: loading ? 1 : 0.98 }}
             className="w-full bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-700 hover:to-blue-600 dark:from-blue-500 dark:to-cyan-500 dark:hover:from-blue-600 dark:hover:to-cyan-600 disabled:opacity-50 disabled:cursor-not-allowed text-white px-6 py-3 rounded-lg font-semibold transition-all shadow-lg hover:shadow-xl dark:shadow-blue-900/30 flex items-center justify-center gap-2"
           >
-            <Save className="w-5 h-5" />
+            {loading ? (
+              <motion.div
+                animate={{ rotate: 360 }}
+                transition={{ duration: 1, repeat: Infinity, ease: 'linear' }}
+              >
+                <Save className="w-5 h-5" />
+              </motion.div>
+            ) : (
+              <Save className="w-5 h-5" />
+            )}
             {loading ? "Menyimpan..." : "Simpan Data"}
-          </button>
+          </motion.button>
         </form>
       </div>
     </Layout>
+  );
+}
+
+function FormInput({
+  label,
+  type,
+  value,
+  onChange,
+  placeholder,
+  required,
+  step,
+}: {
+  label: string;
+  type: string;
+  value: string;
+  onChange: (value: string) => void;
+  placeholder?: string;
+  required?: boolean;
+  step?: string;
+}) {
+  return (
+    <div>
+      <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
+        {label}
+      </label>
+      <motion.input
+        whileFocus={{ scale: 1.02 }}
+        type={type}
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+        placeholder={placeholder}
+        step={step}
+        className="w-full bg-white dark:bg-slate-700 rounded-lg px-4 py-2 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-cyan-500 transition-all"
+        required={required}
+      />
+    </div>
   );
 }
