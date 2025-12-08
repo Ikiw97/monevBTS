@@ -9,6 +9,7 @@ import {
 } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useTheme } from "@/context/ThemeContext";
+import { motion } from "framer-motion";
 
 export default function Dashboard() {
   const { theme } = useTheme();
@@ -77,7 +78,12 @@ export default function Dashboard() {
     <Layout>
       <div className="space-y-8">
         {/* Page Header */}
-        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+        <motion.div
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="flex flex-col md:flex-row md:items-center md:justify-between gap-4"
+        >
           <div>
             <h1 className="text-4xl font-bold text-slate-900 dark:text-white">
               Dashboard
@@ -86,75 +92,130 @@ export default function Dashboard() {
               Monitoring dan evaluasi menara BTS
             </p>
           </div>
-          <Link
-            to="/data-entry"
-            className="inline-flex items-center gap-2 bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-700 hover:to-blue-600 dark:from-blue-500 dark:to-cyan-500 dark:hover:from-blue-600 dark:hover:to-cyan-600 text-white px-6 py-3 rounded-lg font-semibold transition-all shadow-lg hover:shadow-xl dark:shadow-blue-900/30"
+          <motion.div
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
           >
-            <Plus className="w-5 h-5" />
-            Input Data Baru
-          </Link>
-        </div>
+            <Link
+              to="/data-entry"
+              className="inline-flex items-center gap-2 bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-700 hover:to-blue-600 dark:from-blue-500 dark:to-cyan-500 dark:hover:from-blue-600 dark:hover:to-cyan-600 text-white px-6 py-3 rounded-lg font-semibold transition-all shadow-lg hover:shadow-xl dark:shadow-blue-900/30"
+            >
+              <Plus className="w-5 h-5" />
+              Input Data Baru
+            </Link>
+          </motion.div>
+        </motion.div>
 
         {/* Stats Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+        <motion.div
+          initial="hidden"
+          animate="visible"
+          variants={{
+            hidden: { opacity: 0 },
+            visible: {
+              opacity: 1,
+              transition: {
+                staggerChildren: 0.1,
+              },
+            },
+          }}
+          className="grid grid-cols-1 md:grid-cols-4 gap-4"
+        >
           <StatCard
             label="Total Checklist"
             value={stats.total}
             icon={<AlertCircle className="w-8 h-8" />}
             color="bg-blue-500 text-white"
+            delay={0}
           />
           <StatCard
             label="Kondisi Baik"
             value={stats.baik}
             icon={<CheckCircle className="w-8 h-8" />}
             color="bg-green-500 text-white"
+            delay={0.1}
           />
           <StatCard
             label="Kondisi Sedang"
             value={stats.sedang}
             icon={<AlertTriangle className="w-8 h-8" />}
             color="bg-yellow-500 text-white"
+            delay={0.2}
           />
           <StatCard
             label="Kondisi Buruk"
             value={stats.buruk}
             icon={<AlertCircle className="w-8 h-8" />}
             color="bg-red-500 text-white"
+            delay={0.3}
           />
-        </div>
+        </motion.div>
 
         {/* Recent Sites */}
-        <div className="bg-white dark:bg-slate-800 rounded-lg p-6 shadow-md dark:shadow-lg">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.4 }}
+          className="bg-white dark:bg-slate-800 rounded-lg p-6 shadow-md dark:shadow-lg"
+        >
           <div className="flex items-center justify-between mb-6">
             <h2 className="text-2xl font-bold text-slate-900 dark:text-white">
               Data Menara Terbaru
             </h2>
-            <Link
-              to="/map"
-              className="text-blue-600 dark:text-cyan-400 hover:text-blue-700 dark:hover:text-cyan-300 flex items-center gap-2 transition-colors"
-            >
-              Lihat Peta
-              <ArrowRight className="w-4 h-4" />
-            </Link>
+            <motion.div whileHover={{ x: 5 }}>
+              <Link
+                to="/map"
+                className="text-blue-600 dark:text-cyan-400 hover:text-blue-700 dark:hover:text-cyan-300 flex items-center gap-2 transition-colors"
+              >
+                Lihat Peta
+                <ArrowRight className="w-4 h-4" />
+              </Link>
+            </motion.div>
           </div>
 
           {loading ? (
             <div className="flex items-center justify-center py-12">
-              <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500 dark:border-cyan-500"></div>
+              <motion.div
+                animate={{ rotate: 360 }}
+                transition={{ duration: 1, repeat: Infinity, ease: 'linear' }}
+                className="rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500 dark:border-cyan-500"
+              />
             </div>
           ) : sites.length > 0 ? (
-            <div className="space-y-4">
-              {sites.map((site) => (
-                <div
+            <motion.div
+              initial="hidden"
+              animate="visible"
+              variants={{
+                hidden: { opacity: 0 },
+                visible: {
+                  opacity: 1,
+                  transition: {
+                    staggerChildren: 0.1,
+                  },
+                },
+              }}
+              className="space-y-4"
+            >
+              {sites.map((site, index) => (
+                <motion.div
                   key={site.id}
+                  variants={{
+                    hidden: { opacity: 0, x: -20 },
+                    visible: { opacity: 1, x: 0 },
+                  }}
+                  whileHover={{ scale: 1.02, x: 5 }}
+                  transition={{ type: 'spring', stiffness: 300 }}
                   className="bg-blue-100 dark:bg-slate-700 rounded-lg p-4 hover:shadow-md transition-all"
                 >
                   <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
                     <div className="flex-1">
                       <div className="flex items-center gap-2 mb-1">
-                        <span className="px-2 py-1 bg-blue-600 text-white text-xs rounded font-semibold">
+                        <motion.span
+                          whileHover={{ scale: 1.1 }}
+                          className="px-2 py-1 bg-blue-600 text-white text-xs rounded font-semibold"
+                        >
                           #{site.nomor_urut}
-                        </span>
+                        </motion.span>
                       </div>
                       <h3 className="text-lg font-semibold text-slate-900 dark:text-white">
                         {site.nama_site}
@@ -174,21 +235,27 @@ export default function Dashboard() {
                       </div>
                     </div>
                     <div className="flex items-center gap-2">
-                      <a
+                      <motion.a
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
                         href={`https://maps.google.com/?q=${site.koordinat_site.lat},${site.koordinat_site.lng}`}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="px-4 py-2 bg-blue-600 text-white hover:bg-blue-700 rounded-lg text-sm font-medium transition-colors"
                       >
                         Lihat Lokasi
-                      </a>
+                      </motion.a>
                     </div>
                   </div>
-                </div>
+                </motion.div>
               ))}
-            </div>
+            </motion.div>
           ) : (
-            <div className="text-center py-12">
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              className="text-center py-12"
+            >
               <p className="text-slate-600 dark:text-slate-400 mb-4">
                 Belum ada data menara.
               </p>
@@ -198,9 +265,9 @@ export default function Dashboard() {
               >
                 Mulai input data
               </Link>
-            </div>
+            </motion.div>
           )}
-        </div>
+        </motion.div>
       </div>
     </Layout>
   );
@@ -211,24 +278,45 @@ function StatCard({
   value,
   icon,
   color,
+  delay,
 }: {
   label: string;
   value: number;
   icon: React.ReactNode;
   color: string;
+  delay: number;
 }) {
   return (
-    <div
+    <motion.div
+      variants={{
+        hidden: { opacity: 0, y: 20 },
+        visible: { opacity: 1, y: 0 },
+      }}
+      whileHover={{ scale: 1.05, y: -5 }}
+      transition={{ type: 'spring', stiffness: 300 }}
       className={`${color} rounded-lg p-4 shadow-md hover:shadow-lg transition-shadow`}
     >
       <div className="flex items-start justify-between">
         <div>
           <p className="opacity-80 text-sm font-medium">{label}</p>
-          <p className="text-3xl font-bold mt-2">{value}</p>
+          <motion.p
+            initial={{ scale: 0 }}
+            animate={{ scale: 1 }}
+            transition={{ type: 'spring', stiffness: 200, delay: delay + 0.2 }}
+            className="text-3xl font-bold mt-2"
+          >
+            {value}
+          </motion.p>
         </div>
-        <div className="opacity-50">{icon}</div>
+        <motion.div
+          animate={{ rotate: [0, 10, -10, 0] }}
+          transition={{ duration: 2, repeat: Infinity, repeatDelay: 3 }}
+          className="opacity-50"
+        >
+          {icon}
+        </motion.div>
       </div>
-    </div>
+    </motion.div>
   );
 }
 
