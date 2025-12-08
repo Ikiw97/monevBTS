@@ -4,6 +4,7 @@ import Layout from "@/components/Layout";
 import { ExternalLink } from "lucide-react";
 import L from "leaflet";
 import { useTheme } from "@/context/ThemeContext";
+import { motion, AnimatePresence } from "framer-motion";
 
 export default function Map() {
   const { theme } = useTheme();
@@ -36,22 +37,35 @@ export default function Map() {
     <Layout>
       <div className="space-y-8">
         {/* Header */}
-        <div>
+        <motion.div
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+        >
           <h1 className="text-4xl font-bold text-slate-900 dark:text-white">
             Peta Menara
           </h1>
           <p className="text-slate-500 dark:text-slate-400 mt-2">
             Lihat lokasi semua menara BTS yang telah dicatat
           </p>
-        </div>
+        </motion.div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Map Container */}
-          <div className="lg:col-span-2">
+          <motion.div
+            initial={{ opacity: 0, x: -30 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+            className="lg:col-span-2"
+          >
             <div className="bg-white dark:bg-slate-800 rounded-lg overflow-hidden h-[500px] shadow-md">
               {loading ? (
                 <div className="w-full h-full flex items-center justify-center">
-                  <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500 dark:border-cyan-500"></div>
+                  <motion.div
+                    animate={{ rotate: 360 }}
+                    transition={{ duration: 1, repeat: Infinity, ease: 'linear' }}
+                    className="rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500 dark:border-cyan-500"
+                  />
                 </div>
               ) : sites.length > 0 ? (
                 <MapView
@@ -65,15 +79,21 @@ export default function Map() {
                 </div>
               )}
             </div>
-          </div>
+          </motion.div>
 
           {/* Sites List Sidebar */}
-          <div className="bg-white dark:bg-slate-800 rounded-lg p-6 h-[500px] overflow-y-auto shadow-md">
+          <motion.div
+            initial={{ opacity: 0, x: 30 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="bg-white dark:bg-slate-800 rounded-lg p-6 h-[500px] overflow-y-auto shadow-md"
+          >
             <div className="mb-4">
               <h2 className="text-xl font-bold text-slate-900 dark:text-white mb-3">
                 Daftar Menara ({sites.length})
               </h2>
-              <input
+              <motion.input
+                whileFocus={{ scale: 1.02 }}
                 type="number"
                 placeholder="Cari nomor urut..."
                 value={searchNomor}
@@ -81,15 +101,33 @@ export default function Map() {
                 className="w-full bg-blue-100 dark:bg-slate-700 rounded-lg px-3 py-2 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-cyan-500 transition-all text-sm"
               />
             </div>
-            <div className="space-y-3">
+            <motion.div
+              initial="hidden"
+              animate="visible"
+              variants={{
+                hidden: { opacity: 0 },
+                visible: {
+                  opacity: 1,
+                  transition: {
+                    staggerChildren: 0.05,
+                  },
+                },
+              }}
+              className="space-y-3"
+            >
               {sites
                 .filter(
                   (site) =>
                     !searchNomor || site.nomor_urut.toString() === searchNomor,
                 )
                 .map((site) => (
-                  <div
+                  <motion.div
                     key={site.id}
+                    variants={{
+                      hidden: { opacity: 0, x: -20 },
+                      visible: { opacity: 1, x: 0 },
+                    }}
+                    whileHover={{ scale: 1.03, x: 5 }}
                     onClick={() => setSelectedSite(site)}
                     className={`p-3 rounded-lg cursor-pointer transition-all ${
                       selectedSite?.id === site.id
@@ -98,9 +136,12 @@ export default function Map() {
                     }`}
                   >
                     <div className="flex items-center gap-2 mb-1">
-                      <span className="text-xs bg-blue-600 text-white px-2 py-1 rounded font-semibold">
+                      <motion.span
+                        whileHover={{ scale: 1.1 }}
+                        className="text-xs bg-blue-600 text-white px-2 py-1 rounded font-semibold"
+                      >
                         #{site.nomor_urut}
-                      </span>
+                      </motion.span>
                     </div>
                     <h3
                       className={`font-semibold text-sm ${
@@ -130,7 +171,9 @@ export default function Map() {
                       >
                         {site.lokasi}
                       </span>
-                      <a
+                      <motion.a
+                        whileHover={{ scale: 1.2 }}
+                        whileTap={{ scale: 0.9 }}
                         href={`https://www.openstreetmap.org/?mlat=${site.koordinat_site.lat}&mlon=${site.koordinat_site.lng}&zoom=15`}
                         target="_blank"
                         rel="noopener noreferrer"
@@ -142,69 +185,99 @@ export default function Map() {
                         onClick={(e) => e.stopPropagation()}
                       >
                         <ExternalLink className="w-4 h-4" />
-                      </a>
+                      </motion.a>
                     </div>
-                  </div>
+                  </motion.div>
                 ))}
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
         </div>
 
         {/* Site Details */}
-        {selectedSite && (
-          <div className="bg-gradient-to-r from-blue-500 to-blue-600 dark:from-blue-600 dark:to-cyan-600 rounded-lg p-6 shadow-md text-white">
-            <div className="flex items-center gap-3 mb-4">
-              <div>
-                <h3 className="text-2xl font-bold text-white">
-                  {selectedSite.nama_site}
-                </h3>
-                <p className="text-blue-100 text-sm font-medium">
-                  Nomor Urut: #{selectedSite.nomor_urut}
-                </p>
+        <AnimatePresence>
+          {selectedSite && (
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 30 }}
+              transition={{ type: 'spring', stiffness: 200 }}
+              className="bg-gradient-to-r from-blue-500 to-blue-600 dark:from-blue-600 dark:to-cyan-600 rounded-lg p-6 shadow-md text-white"
+            >
+              <div className="flex items-center gap-3 mb-4">
+                <div>
+                  <h3 className="text-2xl font-bold text-white">
+                    {selectedSite.nama_site}
+                  </h3>
+                  <p className="text-blue-100 text-sm font-medium">
+                    Nomor Urut: #{selectedSite.nomor_urut}
+                  </p>
+                </div>
               </div>
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div>
-                <p className="text-blue-100 text-sm mb-1">Alamat</p>
-                <p className="text-white font-medium">
-                  {selectedSite.alamat_site}
-                </p>
-              </div>
-              <div>
-                <p className="text-blue-100 text-sm mb-1">Koordinat</p>
-                <p className="text-white font-medium">
-                  {selectedSite.koordinat_site.lat.toFixed(6)},{" "}
-                  {selectedSite.koordinat_site.lng.toFixed(6)}
-                </p>
-              </div>
-              <div>
-                <p className="text-blue-100 text-sm mb-1">Lokasi</p>
-                <p className="text-white font-medium">{selectedSite.lokasi}</p>
-              </div>
-              <div>
-                <p className="text-blue-100 text-sm mb-1">Tanggal Checklist</p>
-                <p className="text-white font-medium">
-                  {new Date(selectedSite.tanggal_checklist).toLocaleDateString(
-                    "id-ID",
-                  )}
-                </p>
-              </div>
-              <div className="md:col-span-2">
-                <a
-                  href={`https://www.openstreetmap.org/?mlat=${selectedSite.koordinat_site.lat}&mlon=${selectedSite.koordinat_site.lng}&zoom=15`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 bg-white text-blue-600 hover:bg-blue-50 px-4 py-2 rounded-lg font-medium transition-colors shadow-md hover:shadow-lg"
+              <motion.div
+                initial="hidden"
+                animate="visible"
+                variants={{
+                  hidden: { opacity: 0 },
+                  visible: {
+                    opacity: 1,
+                    transition: {
+                      staggerChildren: 0.1,
+                    },
+                  },
+                }}
+                className="grid grid-cols-1 md:grid-cols-2 gap-6"
+              >
+                <DetailItem label="Alamat" value={selectedSite.alamat_site} />
+                <DetailItem
+                  label="Koordinat"
+                  value={`${selectedSite.koordinat_site.lat.toFixed(6)}, ${selectedSite.koordinat_site.lng.toFixed(6)}`}
+                />
+                <DetailItem label="Lokasi" value={selectedSite.lokasi} />
+                <DetailItem
+                  label="Tanggal Checklist"
+                  value={new Date(
+                    selectedSite.tanggal_checklist,
+                  ).toLocaleDateString("id-ID")}
+                />
+                <motion.div
+                  variants={{
+                    hidden: { opacity: 0, y: 10 },
+                    visible: { opacity: 1, y: 0 },
+                  }}
+                  className="md:col-span-2"
                 >
-                  <ExternalLink className="w-4 h-4" />
-                  Buka di Peta
-                </a>
-              </div>
-            </div>
-          </div>
-        )}
+                  <motion.a
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    href={`https://www.openstreetmap.org/?mlat=${selectedSite.koordinat_site.lat}&mlon=${selectedSite.koordinat_site.lng}&zoom=15`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 bg-white text-blue-600 hover:bg-blue-50 px-4 py-2 rounded-lg font-medium transition-colors shadow-md hover:shadow-lg"
+                  >
+                    <ExternalLink className="w-4 h-4" />
+                    Buka di Peta
+                  </motion.a>
+                </motion.div>
+              </motion.div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
     </Layout>
+  );
+}
+
+function DetailItem({ label, value }: { label: string; value: string }) {
+  return (
+    <motion.div
+      variants={{
+        hidden: { opacity: 0, y: 10 },
+        visible: { opacity: 1, y: 0 },
+      }}
+    >
+      <p className="text-blue-100 text-sm mb-1">{label}</p>
+      <p className="text-white font-medium">{value}</p>
+    </motion.div>
   );
 }
 
@@ -241,7 +314,7 @@ function MapView({
 
     map.current = mapInstance;
 
-    // Add markers for each site
+    // Add markers for each site with pulse animation
     sites.forEach((site) => {
       const isSelected = selectedSite?.id === site.id;
 
@@ -258,9 +331,16 @@ function MapView({
             justify-content: center;
             box-shadow: 0 4px 12px rgba(0,0,0,0.4);
             cursor: pointer;
+            animation: ${isSelected ? 'pulse 2s infinite' : 'none'};
           ">
             <div style="width: 12px; height: 12px; background: white; border-radius: 50%;"></div>
           </div>
+          <style>
+            @keyframes pulse {
+              0%, 100% { transform: scale(1); }
+              50% { transform: scale(1.1); }
+            }
+          </style>
         `,
         iconSize: [40, 40],
         className: "custom-marker",
@@ -307,9 +387,16 @@ function MapView({
             justify-content: center;
             box-shadow: 0 4px 12px rgba(0,0,0,0.4);
             cursor: pointer;
+            animation: ${isSelected ? 'pulse 2s infinite' : 'none'};
           ">
             <div style="width: 12px; height: 12px; background: white; border-radius: 50%;"></div>
           </div>
+          <style>
+            @keyframes pulse {
+              0%, 100% { transform: scale(1); }
+              50% { transform: scale(1.1); }
+            }
+          </style>
         `,
         iconSize: [40, 40],
         className: "custom-marker",
