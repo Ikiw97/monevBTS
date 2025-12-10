@@ -1,4 +1,4 @@
-"import { Request, Response } from 'express';
+import { Request, Response } from 'express';
 import { createServerSupabase } from '../../shared/supabase';
 
 // Contoh: Get data dari table
@@ -117,4 +117,3 @@ export async function handleTestConnection(req: Request, res: Response) {
     });
   }
 }
-"
